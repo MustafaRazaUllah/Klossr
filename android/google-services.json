@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "290336697756",
+    "project_id": "klosrr-63a7c",
+    "storage_bucket": "klosrr-63a7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290336697756:android:d58fdf792e4f8da26dac59",
+        "android_client_info": {
+          "package_name": "com.klosrr.org"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290336697756-o0jgn15r514l4jhi32otd271t241qlg2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGRC6xXRx_kucX-675fw6Ic1XZR38uJTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290336697756-o0jgn15r514l4jhi32otd271t241qlg2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "290336697756-7iqt3eehdkidmsin4mdq9et3m8pln9fa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.klossr.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
