@@ -16,8 +16,9 @@ import 'package:toast/toast.dart';
 import 'BottomNav.dart';
 
 class LoginScreen extends StatefulWidget {
-
-   LoginScreen({Key ? key,}) : super(key: key);
+  LoginScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -30,10 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final validator = Validator();
 
-    FirebaseMessaging  _firebaseMessaging=FirebaseMessaging.instance;
-  var   token;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  var token;
 
-  bool ? _passwordVisible;
+  bool? _passwordVisible;
 
   @override
   void initState() {
@@ -111,8 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        VerifyEmailScreen()));
+                                    builder: (context) => VerifyEmailScreen()));
                           },
                         ),
                         SizedBox(
@@ -189,13 +189,16 @@ class _LoginScreenState extends State<LoginScreen> {
       if (validator.isPasswordTrue(_password)) {
         signInMethod(context, _username, _password);
       } else {
-
-        Toast.show("Password length must be greater than 7 character!", textStyle:  TextStyle(),
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+        Toast.show("Password length must be greater than 7 character!",
+            textStyle: TextStyle(),
+            duration: Toast.lengthLong,
+            gravity: Toast.bottom);
       }
     } else {
-      Toast.show("Username is not valid!", textStyle:  TextStyle(),
-          duration: Toast.lengthLong, gravity: Toast.bottom);
+      Toast.show("Username is not valid!",
+          textStyle: TextStyle(),
+          duration: Toast.lengthLong,
+          gravity: Toast.bottom);
     }
   }
 
@@ -204,7 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
     checkInternet().then((value) async {
       if (value) {
         showEasyloaging();
-         userUseCase.signIn(username.trim(), password,token??"").then((value) {
+        userUseCase
+            .signIn(username.trim(), password, token ?? "")
+            .then((value) {
           hideEasyLoading();
           if (value.statusCode == 200) {
             var token = value.data!.token;
@@ -251,14 +256,20 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (value.statusCode == 422) {
             print("data");
 
-            Toast.show("The provided credentials are incorrect.", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("The provided credentials are incorrect.",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom);
           } else if (value.statusCode == 403) {
-            Toast.show("User is not found in our system.",textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("User is not found in our system.",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom);
           } else {
-            Toast.show("Something went wrong!",textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom);
           }
         });
       } else {
@@ -270,8 +281,5 @@ class _LoginScreenState extends State<LoginScreen> {
   moveToHomeScreen() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => BottomNav(1)));
-
-
   }
-
 }

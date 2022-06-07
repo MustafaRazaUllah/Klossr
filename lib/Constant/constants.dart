@@ -6,12 +6,12 @@ const lightBlueColor = "#3e586a";
 const backgroundColor = "#d2d6df";
 const backgroundGreyColor = "#f8f7f7";
 const popUpBackgroundColor = "#cbcbcb";
-const appGreenColor = "#016347";
+const appGreenColor = "#98FB98";
 const rightMsgBackcolor = "#f5f6fa";
 const leftMsgBackColor = "#dddddd";
 
 Color hexToColor(String code) {
-  return  Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
 
 class Constants {

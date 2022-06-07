@@ -15,10 +15,10 @@ import 'package:klossr/Utilities/Utilities.dart';
 import 'package:toast/toast.dart';
 
 class AllChatUserScreen extends StatefulWidget {
-  final UserModel ? user;
-  StreamController ? controller;
+  final UserModel? user;
+  StreamController? controller;
 
-  AllChatUserScreen({Key ?key, this.user, this.controller}) : super(key: key);
+  AllChatUserScreen({Key? key, this.user, this.controller}) : super(key: key);
   @override
   _AllChatUserScreenState createState() => _AllChatUserScreenState();
 }
@@ -26,8 +26,8 @@ class AllChatUserScreen extends StatefulWidget {
 class _AllChatUserScreenState extends State<AllChatUserScreen> {
   List<UserModel> allUsers = [];
   String? currentUserId;
-  FirebaseMessaging  firebaseMessaging=FirebaseMessaging.instance ;
-  String ? groupChatId;
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  String? groupChatId;
 
   @override
   void initState() {
@@ -61,37 +61,17 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
         toolbarHeight: 0.0,
       ),
       body: allUsers.length == 0
-          ?SizedBox()
-      // Center(
-      //         child: Text(
-      //           "No Any Friend found!",
-      //           style: TextStyle(
-      //             fontSize: 18,
-      //             fontWeight: FontWeight.w500,
-      //           ),
-      //         ),
-      //       )
-          // : StreamBuilder<QuerySnapshot>(
-          //     stream: query.snapshots(),
-          //     builder: (context, stream) {
-          //   if (stream.connectionState == ConnectionState.waiting) {
-          //     return Center(child: CircularProgressIndicator());
-          //   }
-
-          //   if (stream.hasError) {
-          //     return Center(child: Text(stream.error.toString()));
-          //   }
-
-          //   QuerySnapshot querySnapshot = stream.data;
-
-          //   return ListView.builder(
-          //     itemCount: querySnapshot.size,
-          //     itemBuilder: (context, index) {
-          //       return _buildChatView(index, querySnapshot);
-          //     },
-          //   );
-          // },
-          //   ));
+          // ?SizedBox()
+          ? Center(
+              child: Text(
+                "No Any Friend found!",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            )
           : ListView.builder(
               itemCount: allUsers.length,
               itemBuilder: (context, i) {
@@ -283,11 +263,15 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
               widget.controller?.sink.add(allUsers.length);
             });
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Request already sent",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           } else {
-            Toast.show("Something went wrong!", textStyle:TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           }
         });
       } else {
@@ -306,16 +290,22 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
           hideEasyLoading();
           if (value.statusCode == 200) {
             print("this is the id $id");
-            Toast.show("Unfriend successfully!", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Unfriend successfully!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => BottomNav(1)));
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Request already sent",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           } else {
-            Toast.show("Something went wrong!", textStyle:TextStyle(),
-                duration:Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           }
         });
       } else {
@@ -350,8 +340,10 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
         await doc.reference.delete();
         if (i == snapshots.docs.length - 1) {
           EasyLoading.dismiss();
-          Toast.show("Chat deleted successfully!", textStyle: TextStyle(),
-              duration: Toast.lengthLong, gravity: Toast.bottom);
+          Toast.show("Chat deleted successfully!",
+              textStyle: TextStyle(),
+              duration: Toast.lengthLong,
+              gravity: Toast.center);
         }
       }
     } else {
@@ -369,16 +361,22 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
           hideEasyLoading();
           if (value.statusCode == 200) {
             // print("this is the id $id");
-            Toast.show("Blocked", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Blocked",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => BottomNav(1)));
           } else if (value.statusCode == 422) {
-            Toast.show("Already Blocked", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Already Blocked",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           } else {
-            Toast.show("Something went wrong!", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity:Toast.bottom);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           }
         });
       } else {

@@ -80,11 +80,13 @@ void configLoading() {
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = hexToColor(appGreenColor)
-    ..backgroundColor = Colors.white
+    ..backgroundColor = Colors.transparent
     ..indicatorColor = hexToColor(appGreenColor)
     ..textColor = hexToColor(appGreenColor)
     ..maskColor = hexToColor(appGreenColor)
-    ..userInteractions = true
+    ..userInteractions = false
+    ..boxShadow = <BoxShadow>[]
+    ..indicatorType = EasyLoadingIndicatorType.ring
     ..dismissOnTap = false;
 }
 

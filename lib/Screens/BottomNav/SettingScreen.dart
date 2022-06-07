@@ -24,7 +24,7 @@ import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
 
 class SettingScreen extends StatefulWidget {
-  const SettingScreen({Key ?key}) : super(key: key);
+  const SettingScreen({Key? key}) : super(key: key);
 
   @override
   _SettingScreenState createState() => _SettingScreenState();
@@ -34,9 +34,9 @@ class _SettingScreenState extends State<SettingScreen> {
   List<String> menuList = ["User Info", "Settings", "Logout"];
   List<UserModel> allUsers = [];
   var image = "";
-  FirebaseMessaging ? _firebaseMessaging;
-  PermissionStatus ?permissionStatus;
-  File  imageFile=File("");
+  FirebaseMessaging? _firebaseMessaging;
+  PermissionStatus? permissionStatus;
+  File imageFile = File("");
   final picker = ImagePicker();
 // var token;
   UserUseCase userUseCase = new UserUseCase();
@@ -47,8 +47,6 @@ class _SettingScreenState extends State<SettingScreen> {
     // Future.delayed(Duration.zero).then((value) => {getFCMToken()});
     // TODO: implement initState
     super.initState();
-
-
   }
   // getFCMToken() async {
   //
@@ -66,7 +64,6 @@ class _SettingScreenState extends State<SettingScreen> {
     });
     print("image");
     print(image);
-
   }
 
   @override
@@ -115,38 +112,32 @@ class _SettingScreenState extends State<SettingScreen> {
                       onTap: () {
                         _showPicker(context);
                       },
-                      child:
-                      image==""&&imageFile!=null
-                          ?  CircleAvatar(
-                          radius: 60.0,
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                          FileImage(imageFile)
+                      child: image == "" && imageFile != null
+                          ? CircleAvatar(
+                              radius: 60.0,
+                              backgroundColor: Colors.white,
+                              backgroundImage: FileImage(imageFile)
 
-                          // image != null && image != ""
-                          //     ? imageFile != null
-                          //         ? FileImage(imageFile)
-                          //         : NetworkImage(image)
-                          //     : AssetImage("assets/images/profile-icon.png"),
-                          )
-                        :
-                      CircleAvatar(
-                          radius: 60.0,
-                          backgroundColor: Colors.white,
-                          backgroundImage:NetworkImage(image),
+                              // image != null && image != ""
+                              //     ? imageFile != null
+                              //         ? FileImage(imageFile)
+                              //         : NetworkImage(image)
+                              //     : AssetImage("assets/images/profile-icon.png"),
+                              )
+                          : CircleAvatar(
+                              radius: 60.0,
+                              backgroundColor: Colors.white,
+                              backgroundImage: NetworkImage(image),
+                            ),
 
-
-                          ),
-
-                          // image != null && image != ""
-                          //     ? imageFile != null
-                          //         ? FileImage(imageFile)
-                          //         : NetworkImage(image)
-                          //     : AssetImage("assets/images/profile-icon.png"),
-                          ),
+                      // image != null && image != ""
+                      //     ? imageFile != null
+                      //         ? FileImage(imageFile)
+                      //         : NetworkImage(image)
+                      //     : AssetImage("assets/images/profile-icon.png"),
                     ),
                   ),
-
+                ),
               ],
             ),
             // SizedBox(height: 20.0),
@@ -336,7 +327,7 @@ class _SettingScreenState extends State<SettingScreen> {
     // decodeImage will identify the format of the image and use the appropriate
     // decoder.
     File myCompressedFile;
-    imgLib.Image ? image = imgLib.decodeImage(resizeThisFile.readAsBytesSync());
+    imgLib.Image? image = imgLib.decodeImage(resizeThisFile.readAsBytesSync());
 
     // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
     imgLib.Image thumbnail = imgLib.copyResize(image!, width: 500, height: 500);

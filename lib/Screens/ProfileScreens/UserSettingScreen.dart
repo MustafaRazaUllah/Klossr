@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:klossr/Screens/AddSuggestionScreen.dart';
-import 'package:klossr/Screens/my_webview.dart';
-
+import '../webview.dart';
 import 'BlockPage.dart';
 
 class UserSettingScreen extends StatefulWidget {
-  const UserSettingScreen({Key ? key}) : super(key: key);
+  const UserSettingScreen({Key? key}) : super(key: key);
 
   @override
   _UserSettingScreenState createState() => _UserSettingScreenState();
@@ -45,37 +44,36 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                   height: 30.0,
                 ),
                 GestureDetector(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Block list',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w400,
-                                )),
-                            Icon(
-                              Icons.chevron_right,
-                              color: Colors.black26,
-                              size: 33,
-                            )
-                          ],
-                        )),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => BlockPage()));
-                    }),
-                SizedBox(
-                  height: 5.0,
+                  child: Container(
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Block list',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                              )),
+                          Icon(
+                            Icons.chevron_right,
+                            color: Colors.black26,
+                            size: 33,
+                          )
+                        ],
+                      )),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => BlockPage()));
+                  },
                 ),
+
                 Divider(
                   thickness: 0.8,
                   color: Colors.black26,
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -84,7 +82,9 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                             builder: (context) => AddSuggestionScreen()));
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -101,16 +101,12 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                         ],
                       )),
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 Divider(
                   thickness: 0.8,
                   color: Colors.black26,
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 // GestureDetector(
                 //   child: Container(
                 //       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -183,7 +179,9 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                 // ),
                 GestureDetector(
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -206,28 +204,31 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                     //         builder: (context) => ContactusPage()));
                   },
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 Divider(
                   thickness: 0.8,
                   color: Colors.black26,
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyWebView(
-                                  url: "https://klosrr.com/privacy-policy",
-                                  title: "Privacy Policy",
-                                )));
+                          builder: (context) => WebViewPage(
+                            url: "https://klosrr.com/privacy-policy",
+                            title: "Privacy Policy",
+                          ),
+                          // MyWebView(
+                          //   url: "https://klosrr.com/privacy-policy",
+                          //   title: "Privacy Policy",
+                          // ),
+                        ));
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -244,29 +245,27 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                         ],
                       )),
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 Divider(
                   thickness: 0.8,
                   color: Colors.black26,
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyWebView(
+                            builder: (context) => WebViewPage(
                                   url:
                                       "https://klosrr.com/terms-and-conditions",
                                   title: "Terms & Conditions",
                                 )));
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -283,28 +282,26 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                         ],
                       )),
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 Divider(
                   thickness: 0.8,
                   color: Colors.black26,
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyWebView(
+                            builder: (context) => WebViewPage(
                                   url: "https://klosrr.com/disclaimer",
                                   title: "Disclaimer",
                                 )));
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -321,15 +318,10 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                         ],
                       )),
                 ),
-                SizedBox(
-                  height: 5.0,
-                ),
+
                 Divider(
                   thickness: 0.8,
                   color: Colors.black26,
-                ),
-                SizedBox(
-                  height: 5.0,
                 ),
               ],
             ),

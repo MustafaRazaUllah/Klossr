@@ -51,17 +51,19 @@ dependencies:
   custom_info_window: ^1.0.1
   cached_network_image: ^3.2.0
   flutter_local_notifications: ^9.4.0
+  webview_flutter: ^3.0.4
 #  flutter_xlider: ^3.4.0
 #  another_xlider: ^1.1.0
   range_slider_flutter: ^0.0.2
   flutter_emoji: ^2.4.0
   get: ^4.6.5
   flutter_svg: ^1.0.3
+  fluttertoast: ^8.0.9
   
 dev_dependencies:
   # flutter_test:
   #   sdk: flutter
-  json_annotation:
+  # json_annotation:
   retrofit_generator: ^4.0.1
   build_runner: ^2.1.10
   json_serializable: ^6.2.0

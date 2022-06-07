@@ -14,7 +14,7 @@ import 'package:klossr/Validator/Validator.dart';
 import 'package:toast/toast.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key?  key}) : super(key: key);
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
   _SignupScreenState createState() => _SignupScreenState();
@@ -28,13 +28,14 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _usernameController = TextEditingController();
   bool _switchValue = false;
   final validator = Validator();
-  bool ? _passwordVisible;
-  FirebaseMessaging  _firebaseMessaging=FirebaseMessaging.instance;
-  var   token;
+  bool? _passwordVisible;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  var token;
   getFCMToken() async {
     token = await _firebaseMessaging.getToken();
     print("toto $token");
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -162,6 +163,22 @@ class _SignupScreenState extends State<SignupScreen> {
                                     color: Colors.white, size: 40),
                               ),
                               onTap: () {
+                                // showDialog(
+                                //     context: context,
+                                //     builder: (_) => AlertDialog(
+                                //             title: Text('Important Note'),
+                                //             content: Text(
+                                //                 "Your current age is 18, so please update your profile. If that's the case, disregard this message; otherwise, please go to settings click on User Info and update your information. Thank you for signing up with Klosrr. You're closer than you think to making new friends."),
+                                //             actions: [
+                                //               TextButton(
+                                //                 onPressed: () {},
+                                //                 child: Text("Cancel"),
+                                //               ),
+                                //               TextButton(
+                                //                 onPressed: () {},
+                                //                 child: Text("ok"),
+                                //               )
+                                //             ]));
                                 validationMethod(context);
                               },
                             ),
@@ -210,25 +227,34 @@ class _SignupScreenState extends State<SignupScreen> {
             if (_switchValue) {
               signUpMethod(context, _name, _username, _email, _password);
             } else {
-              Toast.show("Please agree terms and conditions", textStyle: TextStyle(),
-                  duration: Toast.lengthLong, gravity: Toast.bottom);
+              Toast.show("Please agree terms and conditions",
+                  textStyle: TextStyle(),
+                  duration: Toast.lengthLong,
+                  gravity: Toast.bottom);
             }
           } else {
-            Toast.show(
-                "Password length must be greater than 7 character!",textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Password length must be greater than 7 character!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom);
           }
         } else {
-          Toast.show("Email is not valid!", textStyle:  TextStyle(),
-              duration: Toast.lengthLong, gravity: Toast.bottom);
+          Toast.show("Email is not valid!",
+              textStyle: TextStyle(),
+              duration: Toast.lengthLong,
+              gravity: Toast.bottom);
         }
       } else {
-        Toast.show("Username length must be greater than 2 character!",textStyle:  TextStyle(),
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+        Toast.show("Username length must be greater than 2 character!",
+            textStyle: TextStyle(),
+            duration: Toast.lengthLong,
+            gravity: Toast.bottom);
       }
     } else {
-      Toast.show("Name length must be greater than 2 character!",textStyle:  TextStyle(),
-          duration: Toast.lengthLong, gravity: Toast.bottom);
+      Toast.show("Name length must be greater than 2 character!",
+          textStyle: TextStyle(),
+          duration: Toast.lengthLong,
+          gravity: Toast.bottom);
     }
   }
 
@@ -241,7 +267,6 @@ class _SignupScreenState extends State<SignupScreen> {
         userUseCase.signUp(name, username, email, password).then((value) {
           hideEasyLoading();
           if (value.statusCode == 200) {
-
             // Toast.show("User register successfully!", context,
             //     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
             var token = value.data!.token;
@@ -257,18 +282,8 @@ class _SignupScreenState extends State<SignupScreen> {
             var longitude = value.data!.user.longitude;
             var image = value.data!.user.profile_image;
 
-            SessionManager().setUserInfo(
-                token,
-                name,
-                username,
-                email,
-                age,
-                ghost_mode,
-                about_me,
-                latitude,
-                longitude,
-                password,
-                image);
+            SessionManager().setUserInfo(token, name, username, email, age,
+                ghost_mode, about_me, latitude, longitude, password, image);
 
             SessionManager().setUserId(id.toString());
 
@@ -282,14 +297,30 @@ class _SignupScreenState extends State<SignupScreen> {
               'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
               'chattingWith': null
             });
-
-            moveToHomeScreen();
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                        title: Text('Important Note'),
+                        content: Text(
+                            "Your current age is 18, so please update your profile. If that's the case, disregard this message; otherwise, please go to settings click on User Info and update your information. Thank you for signing up with Klosrr. You're closer than you think to making new friends."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              moveToHomeScreen();
+                            },
+                            child: Text("ok"),
+                          )
+                        ]));
           } else if (value.statusCode == 422) {
-            Toast.show("Username or Email is already taken.", textStyle: TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Username or Email is already taken.",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom);
           } else {
-            Toast.show("Something went wrong!", textStyle:TextStyle(),
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(),
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom);
           }
         });
       } else {
@@ -301,7 +332,9 @@ class _SignupScreenState extends State<SignupScreen> {
   moveToHomeScreen() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => BottomNav(0)));
-_sendAndRetrieveMessage("Your current age is 18, so please update your profile. If that’s the case, disregard this message; otherwise, please go to settings click on User Info and update your information. Thank you for signing up with Klosrr. You’re closer than you think to making new friends.", token);
+    _sendAndRetrieveMessage(
+        "Your current age is 18, so please update your profile. If that’s the case, disregard this message; otherwise, please go to settings click on User Info and update your information. Thank you for signing up with Klosrr. You’re closer than you think to making new friends.",
+        token);
   }
 
   Future<void> _sendAndRetrieveMessage(String message, String tokin) async {
@@ -310,7 +343,8 @@ _sendAndRetrieveMessage("Your current age is 18, so please update your profile. 
 
     final yourServerKey =
         "AAAA8-vbQ9k:APA91bECW4-SOdJhxB-i-hXN0R-JRbkuH06zN_RjC6Ws1vLYDkhroNR4674GWMhkOvfPYVrf2Org-xVsX-qCOeknZGmFwFvI1GhSDWcsrBU_nNwI9uAMsJSOOn74jgwmKQqaGJMSkGkX";
-    await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+    await http.post(
+      Uri.parse('https://fcm.googleapis.com/fcm/send'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'key=$yourServerKey',

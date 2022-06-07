@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getSessionValue();
     getUserId();
   }
+
   getUserId() async {
     userId = await SessionManager().getUserId();
     print("userId");
@@ -402,7 +403,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     RoundSliderThumbShape(
                                                         enabledThumbRadius:
                                                             7.0),
-                                                overlayColor: Colors.black26,
+                                                overlayColor:
+                                                    Colors.transparent,
                                                 // overlayShape: RoundSliderOverlayShape(overlayRadius: 20.0),
                                               ),
                                               child: Row(
@@ -455,10 +457,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Expanded(
                                                   child: RangeSliderFlutter(
                                                     // key: Key('3343'),
+
                                                     values: [ageMin, ageMax],
                                                     rangeSlider: true,
                                                     max: 80,
                                                     handlerHeight: 15,
+                                                    tooltip:
+                                                        RangeSliderFlutterTooltip(
+                                                      // alwaysShowTooltip: true,
+                                                      disabled: true,
+                                                    ),
                                                     trackBar:
                                                         RangeSliderFlutterTrackBar(
                                                       activeTrackBar:
@@ -952,7 +960,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => RequestChatScreen(lstZones[x],userId,token: token,)));
+                      builder: (context) => RequestChatScreen(
+                            lstZones[x],
+                            userId,
+                            token: token,
+                          )));
               // _customInfoWindowController.addInfoWindow(
               //   GestureDetector(
               //     onTap: () {

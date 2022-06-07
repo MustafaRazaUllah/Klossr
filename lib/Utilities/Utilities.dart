@@ -114,7 +114,7 @@ Future<Future> showAlertDialog({
   required BuildContext context,
   required String title,
   required String content,
-  String cancelActionText="",
+  String cancelActionText = "",
   required String defaultActionText,
 }) async {
   if (!Platform.isIOS) {
@@ -173,7 +173,8 @@ checkInternet() async {
   }
 }
 
-noInternetConnectionMethod(context, {bool double=false, bool endRide=false}) {
+noInternetConnectionMethod(context,
+    {bool double = false, bool endRide = false}) {
   return showGeneralDialog(
     context: context,
     pageBuilder: (
@@ -198,7 +199,7 @@ noInternetConnectionMethod(context, {bool double=false, bool endRide=false}) {
 
 noInternetDialog(BuildContext dialogContext, Animation<double> animation,
     Animation<double> secondaryAnimation,
-    {bool double=false, bool endRide=false}) {
+    {bool double = false, bool endRide = false}) {
   final screenSize = MediaQuery.of(dialogContext).size;
   return Scaffold(
     backgroundColor: Colors.transparent,
@@ -277,7 +278,7 @@ noInternetDialog(BuildContext dialogContext, Animation<double> animation,
 showEasyloaging() async {
   await EasyLoading.show(
     status: ' ',
-    maskType: EasyLoadingMaskType.black,
+    maskType: EasyLoadingMaskType.clear,
   );
 }
 

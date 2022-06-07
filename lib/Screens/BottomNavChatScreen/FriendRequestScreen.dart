@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klossr/Constant/constants.dart';
 import 'package:klossr/Models/UserModel.dart';
 import 'package:klossr/Screens/BottomNav.dart';
 import 'package:klossr/Screens/UserChatScreen.dart';
 import 'package:klossr/UseCases/UserUseCase.dart';
 import 'package:klossr/Utilities/Utilities.dart';
-import 'package:toast/toast.dart';
+// import 'package:toast/toast.dart';
 
 class FriendRequestScreen extends StatefulWidget {
-  StreamController ? controller;
+  StreamController? controller;
 
   FriendRequestScreen({Key? key, this.controller}) : super(key: key);
   @override
@@ -29,16 +30,16 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: allUsers.length == 0
-          ? SizedBox()
-      // Center(
-      //         child: Text(
-      //           "No Any Friend Request found!",
-      //           style: TextStyle(
-      //             fontSize: 18,
-      //             fontWeight: FontWeight.w500,
-      //           ),
-      //         ),
-      //       )
+          ? Center(
+              child: Text(
+                "No Any Friend Request found!",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            )
           : ListView.builder(
               itemCount: allUsers.length,
               itemBuilder: (BuildContext context, int index) {
@@ -80,9 +81,6 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
                                     onTap: () {
                                       requestAccept(
                                           allUsers[index].id.toString(), index);
-                                      // Future.delayed(Duration(seconds: 3), () {
-                                      //   showrequest();
-                                      // });
                                     },
                                     child: Container(
                                       height:
@@ -107,9 +105,6 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
                                     onTap: () {
                                       requestReject(
                                           allUsers[index].id.toString(), index);
-                                      // Future.delayed(Duration(seconds: 3), () {
-                                      //   showrequest();
-                                      // });
                                     },
                                     child: Container(
                                       height:
@@ -163,11 +158,25 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
             });
             // Navigator.pop(context);
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Request already sent",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
+            // Toast.show(
+            //     textStyle: context,
+            //     duration: Toast.lengthLong,
+            //     gravity: Toast.bottom);
           }
         });
       } else {
@@ -182,10 +191,22 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
       if (value) {
         showEasyloaging();
         userUseCase.requestAccept(user_id).then((value) {
+          Fluttertoast.showToast(
+              msg: "Request accept successfully!",
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 12.0);
           hideEasyLoading();
           if (value.statusCode == 200) {
-            Toast.show("Request accept successfully!", textStyle: Text,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Request accept successfully!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
 
             setState(() {
               allUsers.removeAt(index);
@@ -197,11 +218,21 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
             // Navigator.pushReplacement(
             //     context, MaterialPageRoute(builder: (context) => BottomNav(1)));
           } else if (value.statusCode == 404) {
-            Toast.show("Request already accepted", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Request already accepted",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity:  Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           }
         });
       } else {
@@ -219,8 +250,13 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
           hideEasyLoading();
           if (value.statusCode == 200) {
             print("this is the user id $user_id");
-            Toast.show("Request decline successfully!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Request decline successfully!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
 
             setState(() {
               allUsers.removeAt(index);
@@ -233,11 +269,21 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
             //     context, MaterialPageRoute(builder: (context) => BottomNav(1)));
 
           } else if (value.statusCode == 404) {
-            Toast.show("Request already declined", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Request already declined",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           }
         });
       } else {

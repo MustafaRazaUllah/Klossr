@@ -8,15 +8,15 @@ import 'package:klossr/SessionManager/SessionManager.dart';
 import 'BottomNav.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key ? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-    FirebaseMessaging  _firebaseMessaging=FirebaseMessaging.instance;
-    // // var token;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  // // var token;
 
   @override
   void initState() {
@@ -31,10 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void iOS_Permission() {
     _firebaseMessaging.requestPermission(sound: true, badge: true, alert: true);
   }
-    // getFCMToken() async {
-    //   token = await _firebaseMessaging.getToken();
-    //   print("toto $token");
-    // }
+  // getFCMToken() async {
+  //   token = await _firebaseMessaging.getToken();
+  //   print("toto $token");
+  // }
 
   isSessionExit() async {
     var isSession = await SessionManager().getUserToken();

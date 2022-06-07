@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klossr/Models/UserModel.dart';
 import 'package:klossr/Screens/BottomNav.dart';
 import 'package:klossr/UseCases/UserUseCase.dart';
@@ -91,11 +92,6 @@ class _BlockPageState extends State<BlockPage> {
                                   SizedBox(width: 10.0),
                                   GestureDetector(
                                     onTap: () {
-                                      //  unFriend(allUsers[index].id.toString(), index);
-// <<<<<<< HEAD
-// =======
-//                                       // print(index);
-// >>>>>>> 20432d7b0e8301db655d043bc1790e1a9b58909e
                                       unBlock(
                                           allUsers[index].id.toString(), index);
                                     },
@@ -148,68 +144,21 @@ class _BlockPageState extends State<BlockPage> {
             });
             // Navigator.pop(context);
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong ,gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Request already sent",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
-          }
-        });
-      } else {
-        noInternetConnectionMethod(context);
-      }
-    });
-  }
-
-  requestAccept(String user_id, int index) {
-    UserUseCase userUseCase = new UserUseCase();
-    checkInternet().then((value) {
-      if (value) {
-        showEasyloaging();
-        userUseCase.requestAccept(user_id).then((value) {
-          hideEasyLoading();
-          if (value.statusCode == 200) {
-            Toast.show("Request accept successfully!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
-
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => BottomNav(1)));
-          } else if (value.statusCode == 404) {
-            Toast.show("Request already accepted", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
-          } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
-          }
-        });
-      } else {
-        noInternetConnectionMethod(context);
-      }
-    });
-  }
-
-  requestReject(String user_id, int index) {
-    UserUseCase userUseCase = new UserUseCase();
-    checkInternet().then((value) {
-      if (value) {
-        showEasyloaging();
-        userUseCase.requestReject(user_id).then((value) {
-          hideEasyLoading();
-          if (value.statusCode == 200) {
-            print("this is the user id $user_id");
-            Toast.show("Request decline successfully!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => BottomNav(1)));
-            // setState(() {
-            //   allUsers.removeAt(index);
-            // });
-          } else if (value.statusCode == 404) {
-            Toast.show("Request already declined", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
-          } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           }
         });
       } else {
@@ -224,20 +173,42 @@ class _BlockPageState extends State<BlockPage> {
       if (value) {
         showEasyloaging();
         userUseCase.unBlock(id).then((value) {
+          Fluttertoast.showToast(
+              msg: "Unblocked",
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 12.0);
           hideEasyLoading();
           if (value.statusCode == 200) {
             print("this is the id $id");
-            Toast.show("Unblocked", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Unblocked",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
             setState(() {
               allUsers.removeAt(index).id;
             });
           } else if (value.statusCode == 422) {
-            Toast.show("User Unblock already", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "User Unblock already",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 12.0);
           }
         });
       } else {

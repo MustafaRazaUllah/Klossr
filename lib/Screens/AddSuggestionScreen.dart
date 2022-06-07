@@ -56,7 +56,7 @@ class _AddSuggestionScreenState extends State<AddSuggestionScreen> {
                       TextField(
                         controller: _genderController,
                         decoration: InputDecoration(
-                          hintText: 'Suggested ',
+                          hintText: 'Type here ',
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey.shade300),
                           ),
