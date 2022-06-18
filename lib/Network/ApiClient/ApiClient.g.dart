@@ -7,7 +7,7 @@ part of 'ApiClient.dart';
 // **************************************************************************
 
 class _ApiClient implements ApiClient {
-  _ApiClient(this._dio, {this.baseUrl=""}) {
+  _ApiClient(this._dio, {this.baseUrl = ""}) {
     ArgumentError.checkNotNull(_dio, '_dio');
     baseUrl = 'https://api.klosrr.com/api/v1/';
   }
@@ -37,23 +37,21 @@ class _ApiClient implements ApiClient {
     if (password != null) {
       _data.fields.add(MapEntry('password', password));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}auth/register',
-        queryParameters: queryParameters,
-
-        options: Options(
-            method: 'POST',
-
-            headers: <String, dynamic>{},
-            extra: _extra,
-           ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}auth/register',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
+            ),
+            data: _data);
     final value = SignInDTO.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<SignInDTO> signIn(username, password, deviceToken) async {
-
     ArgumentError.checkNotNull(username, 'username');
     ArgumentError.checkNotNull(password, 'password');
     ArgumentError.checkNotNull(deviceToken, 'device_token');
@@ -74,24 +72,25 @@ class _ApiClient implements ApiClient {
       print("device_token true");
       print(deviceToken);
 
-      _data.fields.add(MapEntry('device_token',deviceToken));
+      _data.fields.add(MapEntry('device_token', deviceToken));
     }
     print("_data");
     FormData formData = FormData.fromMap({
-     "username":username,
-      "password":password,
-      "device_token":deviceToken
+      "username": username,
+      "password": password,
+      "device_token": deviceToken
     });
 
     print(_data);
-    final _result = await Dio().request<Map<String, dynamic>>('https://api.klosrr.com/api/v1/auth/login',
+    final _result = await Dio().request<Map<String, dynamic>>(
+        'https://api.klosrr.com/api/v1/auth/login',
         queryParameters: queryParameters,
         options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-         ),
-        data:_data);
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
     print("_result");
     print(_result.data);
     final value = SignInDTO.fromJson(_result.data!);
@@ -105,15 +104,16 @@ class _ApiClient implements ApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(userInfo.toJson() );
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}user-update',
-        queryParameters: queryParameters,
-        options:Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-          ),
-        data: _data);
+    _data.addAll(userInfo.toJson());
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}user-update',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = SignInDTO.fromJson(_result.data!);
     return value;
   }
@@ -137,15 +137,15 @@ class _ApiClient implements ApiClient {
     if (distance != null) {
       _data.fields.add(MapEntry('distance', distance));
     }
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '${baseUrl}user-near-location',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-        ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}user-near-location',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = NearByUserDTO.fromJson(_result.data!);
     return value;
   }
@@ -160,14 +160,15 @@ class _ApiClient implements ApiClient {
     if (user_id != null) {
       _data.fields.add(MapEntry('user_id', user_id));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}friend-request',
-        queryParameters: queryParameters,
-        options:Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-        ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}friend-request',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = SendRequestDTO.fromJson(_result.data!);
     return value;
   }
@@ -178,14 +179,15 @@ class _ApiClient implements ApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}requests',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'GET',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-           ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}requests',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'GET',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = ShowRequestDTO.fromJson(_result.data!);
     return value;
   }
@@ -204,10 +206,10 @@ class _ApiClient implements ApiClient {
         '${baseUrl}friend-request-accept',
         queryParameters: queryParameters,
         options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-           ),
+          method: 'POST',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
     final value = RequestAcceptDTO.fromJson(_result.data!);
     return value;
@@ -227,10 +229,10 @@ class _ApiClient implements ApiClient {
         '${baseUrl}friend-request-reject',
         queryParameters: queryParameters,
         options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-         ),
+          method: 'POST',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
     final value = RequestRejectDTO.fromJson(_result.data!);
     return value;
@@ -242,14 +244,15 @@ class _ApiClient implements ApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}friends',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'GET',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}friends',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'GET',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
             ),
-        data: _data);
+            data: _data);
     final value = FriendsDTO.fromJson(_result.data!);
     return value;
   }
@@ -264,14 +267,16 @@ class _ApiClient implements ApiClient {
     if (user_id != null) {
       _data.fields.add(MapEntry('user_id', user_id));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}unfriend',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://api.klosrr.com/api/v1/unfriend', //'${baseUrl}unfriend',
         queryParameters: queryParameters,
         options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-            ),
+          method: 'POST',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
+    print("API Response ===>>>" + _result.data!.toString());
     final value = UnFriendDTO.fromJson(_result.data!);
     return value;
   }
@@ -290,14 +295,15 @@ class _ApiClient implements ApiClient {
     if (longitude != null) {
       _data.fields.add(MapEntry('longitude', longitude.toString()));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}user-location',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-          ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}user-location',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = RequestAcceptDTO.fromJson(_result.data!);
     return value;
   }
@@ -308,14 +314,15 @@ class _ApiClient implements ApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}gender-list',
-        queryParameters: queryParameters,
-        options:Options(
-            method: 'GET',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-           ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}gender-list',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'GET',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = GenderListDTO.fromJson(_result.data!);
     return value;
   }
@@ -330,15 +337,15 @@ class _ApiClient implements ApiClient {
     if (gender != null) {
       _data.fields.add(MapEntry('gender', gender));
     }
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '${baseUrl}gender-suggestion',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-           ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}gender-suggestion',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = SuggestGenderDTO.fromJson(_result.data!);
     return value;
   }
@@ -352,10 +359,10 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}user',
         queryParameters: queryParameters,
         options: Options(
-            method: 'GET',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-          ),
+          method: 'GET',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
     final value = GetUserDTO.fromJson(_result.data!);
     return value;
@@ -372,14 +379,15 @@ class _ApiClient implements ApiClient {
         'image',
         MultipartFile.fromFileSync(image.path,
             filename: image.path.split(Platform.pathSeparator).last)));
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}update-image',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}update-image',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
             ),
-        data: _data);
+            data: _data);
     final value = SuggestGenderDTO.fromJson(_result.data!);
     return value;
   }
@@ -396,11 +404,11 @@ class _ApiClient implements ApiClient {
     }
     final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}block',
         queryParameters: queryParameters,
-        options:Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-           ),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
     final value = BlockDTO.fromJson(_result.data!);
     return value;
@@ -412,14 +420,15 @@ class _ApiClient implements ApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}block-list',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'GET',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}block-list',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'GET',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
             ),
-        data: _data);
+            data: _data);
     final value = BlockListDTO.fromJson(_result.data!);
     return value;
   }
@@ -434,14 +443,15 @@ class _ApiClient implements ApiClient {
     if (unblock_user != null) {
       _data.fields.add(MapEntry('unblock_user', unblock_user));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}unblock',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-           ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}unblock',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
+            ),
+            data: _data);
     final value = unBlockDTO.fromJson(_result.data!);
     return value;
   }
@@ -463,10 +473,10 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}report',
         queryParameters: queryParameters,
         options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-            ),
+          method: 'POST',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
     final value = ReportDTO.fromJson(_result.data!);
     return value;
@@ -482,14 +492,15 @@ class _ApiClient implements ApiClient {
     if (mode != null) {
       _data.fields.add(MapEntry('mode', mode));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}ghost-mode',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}ghost-mode',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{r'Authorization': token},
+              extra: _extra,
             ),
-        data: _data);
+            data: _data);
     final value = GhostModeDTO.fromJson(_result.data!);
     return value;
   }
@@ -519,11 +530,11 @@ class _ApiClient implements ApiClient {
     }
     final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}filter',
         queryParameters: queryParameters,
-        options:Options(
-            method: 'POST',
-            headers: <String, dynamic>{r'Authorization': token},
-            extra: _extra,
-          ),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{r'Authorization': token},
+          extra: _extra,
+        ),
         data: _data);
     final value = NearByUserDTO.fromJson(_result.data!);
     return value;
@@ -538,14 +549,15 @@ class _ApiClient implements ApiClient {
     if (email != null) {
       _data.fields.add(MapEntry('email', email));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}verify-eamil',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}verify-eamil',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
             ),
-        data: _data);
+            data: _data);
     final value = SuggestGenderDTO.fromJson(_result.data!);
     return value;
   }
@@ -559,14 +571,15 @@ class _ApiClient implements ApiClient {
     if (verification_code != null) {
       _data.fields.add(MapEntry('verification_code', verification_code));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}verify-code',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-        ),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}verify-code',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
+            ),
+            data: _data);
     final value = VerifyCodeDTO.fromJson(_result.data!);
     return value;
   }
@@ -584,14 +597,15 @@ class _ApiClient implements ApiClient {
     if (password != null) {
       _data.fields.add(MapEntry('password', password));
     }
-    final _result = await _dio.request<Map<String, dynamic>>('${baseUrl}update-password',
-        queryParameters: queryParameters,
-        options: Options(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
+    final _result =
+        await _dio.request<Map<String, dynamic>>('${baseUrl}update-password',
+            queryParameters: queryParameters,
+            options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
             ),
-        data: _data);
+            data: _data);
     final value = SuggestGenderDTO.fromJson(_result.data!);
     return value;
   }

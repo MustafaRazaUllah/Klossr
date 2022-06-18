@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,41 +117,22 @@ class _SettingScreenState extends State<SettingScreen> {
                           ? CircleAvatar(
                               radius: 60.0,
                               backgroundColor: Colors.white,
-                              backgroundImage: FileImage(imageFile)
-
-                              // image != null && image != ""
-                              //     ? imageFile != null
-                              //         ? FileImage(imageFile)
-                              //         : NetworkImage(image)
-                              //     : AssetImage("assets/images/profile-icon.png"),
-                              )
-                          : CircleAvatar(
-                              radius: 60.0,
-                              backgroundColor: Colors.white,
-                              backgroundImage: NetworkImage(image),
+                              backgroundImage: FileImage(imageFile))
+                          : SizedBox(
+                              height: 130,
+                              width: 130,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(
+                                  "assets/profile_picture.png",
+                                ),
+                              ),
                             ),
-
-                      // image != null && image != ""
-                      //     ? imageFile != null
-                      //         ? FileImage(imageFile)
-                      //         : NetworkImage(image)
-                      //     : AssetImage("assets/images/profile-icon.png"),
                     ),
                   ),
                 ),
               ],
             ),
-            // SizedBox(height: 20.0),
-            // GestureDetector(
-            //   onTap: () {
-            //     _showPicker(context);
-            //   },
-            //   child: Text('Change profile photo',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           color: Colors.black,
-            //           fontWeight: FontWeight.bold)),
-            // ),
             SizedBox(height: 20.0),
             _buildMenu(0),
             _buildMenu(1),
@@ -219,9 +201,14 @@ class _SettingScreenState extends State<SettingScreen> {
         title: Text('Title'),
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: Text('Gallery'),
+            child: Text(
+              'Gallery',
+              style: TextStyle(color: hexToColor(secondryColor)),
+            ),
             onPressed: () {
-              print('Photo Library');
+              print(
+                'Photo Library',
+              );
               Navigator.of(context, rootNavigator: true).pop(
                 "Gallery",
               );
@@ -233,7 +220,10 @@ class _SettingScreenState extends State<SettingScreen> {
             },
           ),
           CupertinoActionSheetAction(
-            child: Text('Camera'),
+            child: Text(
+              'Camera',
+              style: TextStyle(color: hexToColor(secondryColor)),
+            ),
             onPressed: () {
               print('Camera');
               Navigator.of(context, rootNavigator: true).pop("Camera");
@@ -245,12 +235,19 @@ class _SettingScreenState extends State<SettingScreen> {
             },
           ),
           CupertinoActionSheetAction(
-            child: Text('Remove profile image'),
+            child: Text(
+              'Remove profile image',
+              style: TextStyle(color: hexToColor(secondryColor)),
+            ),
             onPressed: () async {
               print('Remove profile image');
-
-              var imagePath = "https://picsum.photos/200";
+              // var imagePath = "https://picsum.photos/200";
+              // var imagePath = "assets/profile_picture.png";
+              var imagePath =
+                  "https://firebasestorage.googleapis.com/v0/b/klosrr-4fd55.appspot.com/o/default-profile-picture-circle-hd-png-download.png?alt=media&token=2b5e7163-9043-4908-9456-617008b7af11";
+              // var f = await urlToFile(imagePath);
               var f = await urlToFile(imagePath);
+              print("image-->> " + f.toString());
               setState(() {
                 imageFile = f;
               });
@@ -265,7 +262,10 @@ class _SettingScreenState extends State<SettingScreen> {
           )
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: Text('Cancel'),
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: hexToColor(secondryColor)),
+          ),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop("Cancel");
           },
@@ -299,6 +299,7 @@ class _SettingScreenState extends State<SettingScreen> {
           imageFile = File(pickedFile.path);
         });
         var finalImage = resizeMyImage(imageFile);
+        print("image-->> " + finalImage.toString());
         finalImage.then((value) {
           print(value.path);
           updateUserImage(value);

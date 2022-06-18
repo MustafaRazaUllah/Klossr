@@ -62,16 +62,17 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
       ),
       body: allUsers.length == 0
           // ?SizedBox()
-          ? Center(
-              child: Text(
-                "No Any Friend found!",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            )
+          ? SizedBox()
+          // Center(
+          //     child: Text(
+          //       "No Any Friend found!",
+          //       style: TextStyle(
+          //         fontSize: 18,
+          //         color: Colors.grey,
+          //         fontWeight: FontWeight.w400,
+          //       ),
+          //     ),
+          //   )
           : ListView.builder(
               itemCount: allUsers.length,
               itemBuilder: (context, i) {

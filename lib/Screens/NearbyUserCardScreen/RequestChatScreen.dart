@@ -244,10 +244,10 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
                                 borderRadius: BorderRadius.circular(22)),
                             child: Center(
                               child: requested == false
-                                  ? Text('Chat to Request',
+                                  ? Text('Request to Chat',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0))
-                                  : Text('Chat to Requested',
+                                  : Text('Requested to Chat',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0)),
                             )),

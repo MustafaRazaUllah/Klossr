@@ -27,18 +27,18 @@ import 'package:klossr/Network/ServerError.dart';
 import 'package:klossr/SessionManager/SessionManager.dart';
 
 class UserUseCase {
-  Dio  dio= Dio();
-  ApiClient ?  apiClient;
+  Dio dio = Dio();
+  ApiClient? apiClient;
   UserUseCase() {
-    dio =  Dio();
-    apiClient =  ApiClient(dio);
+    dio = Dio();
+    apiClient = ApiClient(dio);
   }
 
   Future<BaseModel<SignInDTO>> signUp(
       String name, String username, String email, String password) async {
-    SignInDTO ? response;
+    SignInDTO? response;
     try {
-    print("Enter in response of SignUp");
+      print("Enter in response of SignUp");
 
       response = await apiClient?.signUp(name, username, email, password);
       print("response of SignUp");
@@ -60,7 +60,7 @@ class UserUseCase {
 
   Future<BaseModel<SignInDTO>> signIn(
       String userName, String password, String token) async {
-    SignInDTO ? response;
+    SignInDTO? response;
     try {
       response = await apiClient?.signIn(userName.trim(), password, token);
     } catch (error, stacktrace) {
@@ -78,7 +78,7 @@ class UserUseCase {
 
   Future<BaseModel<SignInDTO>> updateUserInfo(
       UserInfoRequestModel userInfo) async {
-    SignInDTO ? response;
+    SignInDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -99,7 +99,7 @@ class UserUseCase {
 
   Future<BaseModel<NearByUserDTO>> getNearbyZones(
       String lat, String long) async {
-    NearByUserDTO ? response;
+    NearByUserDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -120,7 +120,7 @@ class UserUseCase {
 
   Future<BaseModel<RequestAcceptDTO>> saveCurrentLocation(
       double lat, double long) async {
-    RequestAcceptDTO ? response;
+    RequestAcceptDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -140,7 +140,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<SendRequestDTO>> sendRequest(String user_id) async {
-    SendRequestDTO ? response;
+    SendRequestDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -160,7 +160,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<ShowRequestDTO>> showRequest() async {
-    ShowRequestDTO ? response;
+    ShowRequestDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -184,7 +184,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<RequestAcceptDTO>> requestAccept(String user_id) async {
-    RequestAcceptDTO ? response;
+    RequestAcceptDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -205,7 +205,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<RequestRejectDTO>> requestReject(String user_id) async {
-    RequestRejectDTO ? response;
+    RequestRejectDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -226,7 +226,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<FriendsDTO>> friends() async {
-    FriendsDTO ? response;
+    FriendsDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -248,27 +248,30 @@ class UserUseCase {
   }
 
   Future<BaseModel<UnFriendDTO>> unFriend(String user_id) async {
-    UnFriendDTO ? response;
-    try {
-      String _token = await SessionManager().getUserToken();
-      String token = "Bearer $_token";
-      print(token);
-      response = await apiClient?.unFriend(token, user_id);
-    } catch (error, stacktrace) {
-      print("Exception occuredddd: $stacktrace");
-      if (error is DioError)
-        return BaseModel()..setException(ServerError.withError(error: error));
-      else {
-        print("json mapping error. check data types");
-      }
-    }
+    UnFriendDTO? response;
+    // try {
+    String _token = await SessionManager().getUserToken();
+    String token = "Bearer $_token";
+    print("Token ==>>" + token.toString());
+    print("User ID" + user_id.toString());
+    response = await apiClient?.unFriend(token, user_id);
+    print("Json Response ==>>");
+    print(response.toString());
+    // } catch (error, stacktrace) {
+    //   print("Exception occuredddd: $stacktrace");
+    //   if (error is DioError)
+    //     return BaseModel()..setException(ServerError.withError(error: error));
+    //   else {
+    //     print("json mapping error. check data types");
+    //   }
+    // }
     return BaseModel()
       ..setStatusCode(200)
       ..data = response!;
   }
 
   Future<BaseModel<GenderListDTO>> genderList() async {
-    GenderListDTO ? response;
+    GenderListDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -288,7 +291,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<SuggestGenderDTO>> suggestGender(String gender) async {
-    SuggestGenderDTO ? response;
+    SuggestGenderDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -308,7 +311,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<GetUserDTO>> getUserDetail() async {
-    GetUserDTO ? response;
+    GetUserDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -328,7 +331,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<SuggestGenderDTO>> updateImage(File imageFile) async {
-    SuggestGenderDTO ? response;
+    SuggestGenderDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -349,7 +352,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<BlockDTO>> block(String block_user) async {
-    BlockDTO ? response;
+    BlockDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -369,7 +372,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<BlockListDTO>> blockList() async {
-    BlockListDTO ? response;
+    BlockListDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -391,7 +394,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<unBlockDTO>> unBlock(String unblock_user) async {
-    unBlockDTO ? response;
+    unBlockDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -412,7 +415,7 @@ class UserUseCase {
 
   Future<BaseModel<ReportDTO>> report(
       String user_report, String message) async {
-    ReportDTO ? response;
+    ReportDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -432,7 +435,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<GhostModeDTO>> ghostMode(String mode) async {
-    GhostModeDTO ? response;
+    GhostModeDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -453,7 +456,7 @@ class UserUseCase {
 
   Future<BaseModel<NearByUserDTO>> applyFilter(
       String gender, int distance, int minAge, int maxAge) async {
-    NearByUserDTO ? response;
+    NearByUserDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
@@ -474,7 +477,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<SuggestGenderDTO>> verifyEmail(String email) async {
-    SuggestGenderDTO ? response;
+    SuggestGenderDTO? response;
     try {
       // String _token = await SessionManager().getUserToken();
       // String token = "Bearer $_token";
@@ -494,7 +497,7 @@ class UserUseCase {
   }
 
   Future<BaseModel<VerifyCodeDTO>> verifyCode(String code) async {
-    VerifyCodeDTO ? response;
+    VerifyCodeDTO? response;
     try {
       // String _token = await SessionManager().getUserToken();
       // String token = "Bearer $_token";
@@ -513,8 +516,9 @@ class UserUseCase {
       ..data = response!;
   }
 
-  Future<BaseModel<SuggestGenderDTO>> updatePassword(String password, String token) async {
-    SuggestGenderDTO ? response;
+  Future<BaseModel<SuggestGenderDTO>> updatePassword(
+      String password, String token) async {
+    SuggestGenderDTO? response;
     try {
       // String _token = await SessionManager().getUserToken();
       // String token = "Bearer $_token";

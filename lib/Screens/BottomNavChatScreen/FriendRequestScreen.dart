@@ -30,16 +30,17 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: allUsers.length == 0
-          ? Center(
-              child: Text(
-                "No Any Friend Request found!",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            )
+          ? SizedBox()
+          // Center(
+          //     child: Text(
+          //       "No Any Friend Request found!",
+          //       style: TextStyle(
+          //         fontSize: 18,
+          //         color: Colors.grey,
+          //         fontWeight: FontWeight.w400,
+          //       ),
+          //     ),
+          //   )
           : ListView.builder(
               itemCount: allUsers.length,
               itemBuilder: (BuildContext context, int index) {
