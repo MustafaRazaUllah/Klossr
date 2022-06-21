@@ -495,8 +495,12 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
 
         birthDateInString =
             "${birthDate!.year}-${birthDate!.month}-${birthDate!.day}"; // 2019-08-14
+        print("isDateSelected");
+        print(isDateSelected);
       });
     }
+    print("isDateSelected");
+    print(isDateSelected);
   }
 
   bool isAdult(String birthDateString) {

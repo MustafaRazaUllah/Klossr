@@ -44,19 +44,21 @@ Future<void> main() async {
 
   /// Update the iOS foreground notification presentation options to allow
   /// heads up notifications.
-  FirebaseMessaging.onMessage.listen((RemoteMessage event) async {
-    print("recieved");
-    print(event.notification!.title);
+  FirebaseMessaging.onMessage.listen(
+    (RemoteMessage event) async {
+      print("recieved");
+      print(event.notification!.title);
 
-    LocalNotifications().notification(
-        '${event.notification!.title}', '${event.notification!.body}');
-    if (event.notification!.title == "Message") {
-      await SessionManager().setUserYu('hg');
-      controller.check();
-    } else {
-      controller.check();
-    }
-  });
+      LocalNotifications().notification(
+          '${event.notification!.title}', '${event.notification!.body}');
+      if (event.notification!.title == "Message") {
+        await SessionManager().setUserYu('hg');
+        controller.check();
+      } else {
+        controller.check();
+      }
+    },
+  );
   FirebaseMessaging.onMessageOpenedApp.listen((message) async {
     print("app is open  recieved");
     print(message.data);
