@@ -23,6 +23,8 @@ import 'package:flutter/services.dart' show SystemUiOverlayStyle, rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart' show rootBundle;
+import 'file_from_imageurl.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -37,6 +39,9 @@ class _SettingScreenState extends State<SettingScreen> {
   var image = "";
   FirebaseMessaging? _firebaseMessaging;
   PermissionStatus? permissionStatus;
+  // File imageFile = File("");
+  String iamgesFile = "assets/profile_picture.png";
+
   File imageFile = File("");
   final picker = ImagePicker();
 // var token;
@@ -44,10 +49,11 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((value) => {getUserImage()});
+    // Future.delayed(Duration.zero).then((value) => {});
     // Future.delayed(Duration.zero).then((value) => {getFCMToken()});
     // TODO: implement initState
     super.initState();
+    getUserImage();
   }
   // getFCMToken() async {
   //
@@ -57,14 +63,35 @@ class _SettingScreenState extends State<SettingScreen> {
 
   getUserImage() async {
     var _image = await SessionManager().getImage();
-    print("image");
-    print(_image);
 
-    setState(() {
-      image = _image;
+    var fileName = await fileFromImageUrl(_image);
+    print("out source" + fileName.toString());
+    setState(
+      () {
+        imageFile = File(fileName.path);
+      },
+    );
+  }
+
+  updateUserImage(File fileImage) {
+    print(fileImage);
+    checkInternet().then((value) async {
+      if (value) {
+        showEasyloaging();
+        userUseCase.updateImage(fileImage).then((value) {
+          hideEasyLoading();
+          if (value.statusCode == 200) {
+            var imageUrl = value.data!.image_url;
+            print(imageUrl +
+                "New Updated Image of User===================================>>>>>>>>>>>>>>>>>>>");
+            SessionManager().setImage(imageUrl);
+            showToast("Image Updated!", context);
+          } else
+            showToast("Something went wrong", context);
+        });
+      } else
+        noInternetConnectionMethod(context);
     });
-    print("image");
-    print(image);
   }
 
   @override
@@ -88,14 +115,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       height: 200.0,
                       width: double.infinity,
                       color: Colors.black,
-                    )
-                    // Image(
-                    //   height: 300.0,
-                    //   width: double.infinity,
-                    //   image: AssetImage("assets/images/person.jpg"),
-                    //   fit: BoxFit.cover,
-                    // ),
-                    ),
+                    )),
                 Positioned(
                   bottom: 0.0,
                   child: Container(
@@ -110,25 +130,36 @@ class _SettingScreenState extends State<SettingScreen> {
                       ],
                     ),
                     child: GestureDetector(
-                      onTap: () {
-                        _showPicker(context);
-                      },
-                      child: image == "" && imageFile != null
-                          ? CircleAvatar(
-                              radius: 60.0,
-                              backgroundColor: Colors.white,
-                              backgroundImage: FileImage(imageFile))
-                          : SizedBox(
-                              height: 130,
-                              width: 130,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Image.asset(
-                                  "assets/profile_picture.png",
+                        onTap: () {
+                          _showPicker(context);
+                        },
+                        child: imageFile == null
+                            ? SizedBox(
+                                height: 130,
+                                width: 130,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Image.asset(
+                                    "assets/profile_picture.png",
+                                  ),
                                 ),
-                              ),
-                            ),
-                    ),
+                              )
+                            : CircleAvatar(
+                                radius: 60.0,
+                                backgroundColor: Colors.white,
+                                backgroundImage: FileImage(imageFile),
+                              )
+                        // : SizedBox(
+                        //     height: 130,
+                        //     width: 130,
+                        //     child: ClipRRect(
+                        //       borderRadius: BorderRadius.circular(100),
+                        //       child: Image.asset(
+                        //         "assets/profile_picture.png",
+                        //       ),
+                        //     ),
+                        //   ),
+                        ),
                   ),
                 ),
               ],
@@ -251,7 +282,6 @@ class _SettingScreenState extends State<SettingScreen> {
               setState(() {
                 imageFile = f;
               });
-
               updateUserImage(f);
               Navigator.of(context, rootNavigator: true)
                   .pop("Remove profile image");
@@ -298,6 +328,7 @@ class _SettingScreenState extends State<SettingScreen> {
         setState(() {
           imageFile = File(pickedFile.path);
         });
+        print("after object=+++++Local Image Path" + imageFile.toString());
         var finalImage = resizeMyImage(imageFile);
         print("image-->> " + finalImage.toString());
         finalImage.then((value) {
@@ -307,6 +338,7 @@ class _SettingScreenState extends State<SettingScreen> {
       } else {
         print('No image selected.');
       }
+      setState(() {});
     } else {
       showAlertDialog(
           context: context,
@@ -339,25 +371,6 @@ class _SettingScreenState extends State<SettingScreen> {
       ..writeAsBytesSync(imgLib.encodePng(thumbnail));
 
     return myCompressedFile;
-  }
-
-  updateUserImage(File fileImage) {
-    print(fileImage);
-    checkInternet().then((value) async {
-      if (value) {
-        showEasyloaging();
-        userUseCase.updateImage(fileImage).then((value) {
-          hideEasyLoading();
-          if (value.statusCode == 200) {
-            var imageUrl = value.data!.image_url;
-            SessionManager().setImage(imageUrl);
-            showToast("Image Updated!", context);
-          } else
-            showToast("Something went wrong", context);
-        });
-      } else
-        noInternetConnectionMethod(context);
-    });
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {

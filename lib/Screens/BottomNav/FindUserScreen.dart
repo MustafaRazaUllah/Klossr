@@ -259,7 +259,7 @@ class _FindUserScreenState extends State<FindUserScreen> {
                 )
               : Center(
                   child: Text(
-                    "Check later to see if there are any new friends.",
+                    "No new friends. Check back later",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,

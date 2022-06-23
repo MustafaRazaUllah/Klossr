@@ -574,7 +574,8 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
       }
 
       print(
-          "name: $name, username: $userName, email: $email, age: $age, DOB: $birthDate, about_me : $aboutMe, ghost: $isGhostMode, gender: ${gender!.id}, interested: $isInterestedIn, password: $password");
+        "name: $name,username: $userName, email: $email, age: $age, DOB: $birthDate, about_me : $aboutMe, ghost: $isGhostMode, gender: ${gender!.id}, interested: $isInterestedIn, password: $password",
+      );
 
       var updatedUserDetail = UserInfoRequestModel(
         name,
@@ -588,40 +589,31 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
       );
       if (value) {
         showEasyloaging();
-        userUseCase.updateUserInfo(updatedUserDetail).then((value) {
-          hideEasyLoading();
-          if (value.statusCode == 200) {
-            Toast.show(
-              "Profile are updated successfully.",
-              textStyle: TextStyle(color: Colors.white),
-              duration: Toast.lengthLong,
-              gravity: Toast.center,
-            );
+        userUseCase.updateUserInfo(updatedUserDetail).then(
+          (value) {
+            hideEasyLoading();
+            if (value.statusCode == 200) {
+              Toast.show(
+                "Profile are updated successfully.",
+                textStyle: TextStyle(color: Colors.white),
+                duration: Toast.lengthLong,
+                gravity: Toast.center,
+              );
 
-            SessionManager().setUserInfo(
-                token,
-                name,
-                userName,
-                email,
-                age,
-                ghostMode,
-                aboutMe,
-                // interestedIn,
-                null,
-                null,
-                password,
-                image);
+              SessionManager().setUserInfo(token, name, userName, email, age,
+                  ghostMode, aboutMe, null, null, password, image);
 
-            Navigator.pop(context);
-          } else {
-            Toast.show(
-              "Something went wrong!",
-              textStyle: TextStyle(color: Colors.white),
-              duration: Toast.lengthLong,
-              gravity: Toast.center,
-            );
-          }
-        });
+              Navigator.pop(context);
+            } else {
+              Toast.show(
+                "Something went wrong!",
+                textStyle: TextStyle(color: Colors.white),
+                duration: Toast.lengthLong,
+                gravity: Toast.center,
+              );
+            }
+          },
+        );
       } else {
         noInternetConnectionMethod(context);
       }

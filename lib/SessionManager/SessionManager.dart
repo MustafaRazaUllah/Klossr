@@ -1,12 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionManager {
-
   Future<bool> isExists(String inputString) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var check = prefs.getString(inputString);
     return check == null ? false : true;
   }
+
   setUserInfo(token, name, username, email, age, ghost_mode, about_me, latitude,
       longitude, password, image) async {
     var prefs = await SharedPreferences.getInstance();
@@ -19,8 +19,8 @@ class SessionManager {
     prefs.setString('about_me', about_me);
     // prefs.setString('gender', gender);
     // prefs.setString('intrested_in', intrested_in);
-    prefs.setDouble('latitude', latitude!=null?latitude:0.0);
-    prefs.setDouble('longitude', longitude!=null?longitude:0.0);
+    prefs.setDouble('latitude', latitude != null ? latitude : 0.0);
+    prefs.setDouble('longitude', longitude != null ? longitude : 0.0);
     prefs.setString('pass', password);
     prefs.setString("image", image);
   }
@@ -29,22 +29,23 @@ class SessionManager {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('id', id);
   }
+
   setUserYu(id) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('yu', id);
   }
+
   messageClear() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove("yu");
-
   }
-
 
   Future<String> getUserId() async {
     final prefs = await SharedPreferences.getInstance();
     var _userId = prefs.getString('id');
     return _userId!;
   }
+
   Future<String> getUserYu() async {
     final prefs = await SharedPreferences.getInstance();
     var _userId = prefs.getString('yu');
@@ -65,11 +66,6 @@ class SessionManager {
   setName(name) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('name', name);
-  }
-
-  setImage(image) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString('image', image);
   }
 
   Future<String> getName() async {
@@ -99,12 +95,18 @@ class SessionManager {
     final prefs = await SharedPreferences.getInstance();
     var _token = prefs.getString('FCMToken');
     print(_token);
-  return _token!;
+    return _token!;
   }
 
- getImage() async {
+  setImage(image) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('image', image);
+    print("Update Images User " + await prefs.getString('image').toString());
+  }
+
+  getImage() async {
     final prefs = await SharedPreferences.getInstance();
-    var  _image = prefs.getString('image');
+    var _image = prefs.getString('image');
     print("_image");
     print(_image);
     return _image;
