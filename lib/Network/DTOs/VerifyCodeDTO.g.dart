@@ -8,13 +8,13 @@ part of 'VerifyCodeDTO.dart';
 
 VerifyCodeDTO _$VerifyCodeDTOFromJson(Map<String, dynamic> json) {
   return VerifyCodeDTO(
-    json['message'] as String,
+    json['messages'] as String,
     json['remember_token'] as String,
   );
 }
 
 Map<String, dynamic> _$VerifyCodeDTOToJson(VerifyCodeDTO instance) =>
     <String, dynamic>{
-      'message': instance.message,
+      'messages': instance.message,
       'remember_token': instance.remember_token,
     };

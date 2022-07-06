@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klossr/Screens/LoginScreen.dart';
 import 'package:klossr/UseCases/UserUseCase.dart';
 import 'package:klossr/Utilities/Utilities.dart';
@@ -106,15 +107,17 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
                     final _password = _passwordController.text;
-
                     if (_password.isNotEmpty && _password.length == 8) {
                       updatePasswordMethod(_password);
                     } else {
-                      Toast.show(
-                          "Password is incorrect or should be 8 characters.",
-                          textStyle: context,
-                          duration: Toast.lengthLong,
-                          gravity: Toast.center);
+                      Fluttertoast.showToast(
+                          msg:
+                              "Password is incorrect or should be 8 characters.",
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.black,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                     }
                   },
                 ),
@@ -132,14 +135,28 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
         userUseCase.updatePassword(password, widget.rememberCode).then((value) {
           hideEasyLoading();
           if (value.statusCode == 200) {
-            Toast.show("Password Updated Successfully.", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            // Toast.show("Password Updated Successfully.",
+            //     textStyle: TextStyle(),
+            //     duration: Toast.lengthLong,
+            //     gravity: Toast.center);
+            Fluttertoast.showToast(
+                msg: "Password Updated Successfully.",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
 
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => LoginScreen()));
-          }else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity:  Toast.bottom);
+          } else {
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
         });
       } else {

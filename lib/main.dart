@@ -11,6 +11,7 @@ import 'package:klossr/SessionManager/SessionManager.dart';
 import 'package:klossr/Utilities/local_notification.dart';
 import 'package:klossr/Utilities/notification_check.dart';
 import 'package:klossr/screens/SplashScreen.dart';
+import 'package:toast/toast.dart';
 
 var controller = Get.put(NotificationViewModel());
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -70,6 +71,7 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   HttpOverrides.global = new MyHttpOverrides();
+
   runApp(MyApp());
   configLoading();
 }
@@ -95,6 +97,7 @@ void configLoading() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return MaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(

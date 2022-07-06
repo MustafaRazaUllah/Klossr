@@ -112,10 +112,10 @@ class _ChatScreenState extends State<ChatScreen>
             });
           } else if (value.statusCode == 422) {
             Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           }
         });
       } else {
@@ -142,10 +142,10 @@ class _ChatScreenState extends State<ChatScreen>
             // Navigator.pop(context);
           } else if (value.statusCode == 422) {
             Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           }
         });
       } else {

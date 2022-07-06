@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klossr/Screens/ForgotPassword/UpdatePasswordScreen.dart';
 import 'package:klossr/UseCases/UserUseCase.dart';
 import 'package:klossr/Utilities/Utilities.dart';
@@ -6,7 +7,7 @@ import 'package:klossr/Validator/Validator.dart';
 import 'package:toast/toast.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
-  const VerifyCodeScreen({Key ? key}) : super(key: key);
+  const VerifyCodeScreen({Key? key}) : super(key: key);
 
   @override
   State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
@@ -91,12 +92,18 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
                     final _code = _codeController.text;
-
+                    print("object=============>>>>>>>>>+++++++++>>>>>>");
+                    print(_code);
                     if (_code.isNotEmpty && _code.length == 6) {
                       verifyCodeMethod(_code);
                     } else {
-                      Toast.show("Code is incorrect.", textStyle: context,
-                          duration: Toast.lengthLong, gravity: Toast.center);
+                      Fluttertoast.showToast(
+                          msg: "Code is incorrect.",
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.black,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                     }
                   },
                 ),
@@ -107,31 +114,50 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   }
 
   verifyCodeMethod(String code) {
+    print("object=============>>>>>>>>>+++++++++>>>>>>");
+    print(code);
     UserUseCase userUseCase = new UserUseCase();
     checkInternet().then((value) {
       if (value) {
         showEasyloaging();
         userUseCase.verifyCode(code).then((value) {
           hideEasyLoading();
+          print(value.toString());
           if (value.statusCode == 200) {
-            // Toast.show("Mail send Successfully.", context,
-            //     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-
+            print("Success");
             final code = value.data!.remember_token;
             print(code);
-
+            Fluttertoast.showToast(
+                msg: "OTP Verify Successfully",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => UpdatePasswordScreen(
-                          rememberCode: code,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => UpdatePasswordScreen(
+                  rememberCode: code,
+                ),
+              ),
+            );
           } else if (value.statusCode == 404) {
-            Toast.show("Verification code is incorrect.", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Verification code is incorrect.",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
         });
       } else {

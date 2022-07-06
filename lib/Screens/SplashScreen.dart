@@ -24,7 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(Duration.zero).then((value) => {iOS_Permission()});
     // Future.delayed(Duration.zero).then((value) => { getFCMToken()});
-
     Future.delayed(Duration(seconds: 3)).then((value) => {isSessionExit()});
   }
 

@@ -192,13 +192,13 @@ class _LoginScreenState extends State<LoginScreen> {
         Toast.show("Password length must be greater than 7 character!",
             textStyle: TextStyle(),
             duration: Toast.lengthLong,
-            gravity: Toast.bottom);
+            gravity: Toast.center);
       }
     } else {
       Toast.show("Username is not valid!",
           textStyle: TextStyle(),
           duration: Toast.lengthLong,
-          gravity: Toast.bottom);
+          gravity: Toast.center);
     }
   }
 
@@ -259,17 +259,17 @@ class _LoginScreenState extends State<LoginScreen> {
             Toast.show("The provided credentials are incorrect.",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           } else if (value.statusCode == 403) {
             Toast.show("User is not found in our system.",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           }
         });
       } else {

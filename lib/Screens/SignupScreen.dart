@@ -230,31 +230,31 @@ class _SignupScreenState extends State<SignupScreen> {
               Toast.show("Please agree terms and conditions",
                   textStyle: TextStyle(),
                   duration: Toast.lengthLong,
-                  gravity: Toast.bottom);
+                  gravity: Toast.center);
             }
           } else {
             Toast.show("Password length must be greater than 7 character!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           }
         } else {
           Toast.show("Email is not valid!",
               textStyle: TextStyle(),
               duration: Toast.lengthLong,
-              gravity: Toast.bottom);
+              gravity: Toast.center);
         }
       } else {
         Toast.show("Username length must be greater than 2 character!",
             textStyle: TextStyle(),
             duration: Toast.lengthLong,
-            gravity: Toast.bottom);
+            gravity: Toast.center);
       }
     } else {
       Toast.show("Name length must be greater than 2 character!",
           textStyle: TextStyle(),
           duration: Toast.lengthLong,
-          gravity: Toast.bottom);
+          gravity: Toast.center);
     }
   }
 
@@ -315,12 +315,12 @@ class _SignupScreenState extends State<SignupScreen> {
             Toast.show("Username or Email is already taken.",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           }
         });
       } else {

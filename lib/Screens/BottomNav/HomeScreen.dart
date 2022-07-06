@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   GoogleMapController? _controller;
   LatLng? currentLatLng;
   BitmapDescriptor? _markerIcon;
-  LatLng _initialcameraposition = LatLng(24.8974834, 67.0775689);
+  LatLng _initialcameraposition = LatLng(56.1304, 106.3468);
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   myPermission.PermissionStatus? permissionStatus;
   int _markerIdCounter = 1;
@@ -1170,18 +1170,18 @@ class _HomeScreenState extends State<HomeScreen> {
             Toast.show("Cloak mode is updated successfully",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           } else if (value.statusCode == 422) {
             print("value: ${value.data}");
             Toast.show("Cannot update",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           }
         });
       } else {
@@ -1242,7 +1242,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Toast.show("Please select distance value.",
           textStyle: TextStyle(),
           duration: Toast.lengthLong,
-          gravity: Toast.bottom);
+          gravity: Toast.center);
       return;
     }
 

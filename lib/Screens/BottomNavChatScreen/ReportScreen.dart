@@ -79,7 +79,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   var message = messageTextController.text;
                   if (message.isEmpty || message == null) {
                     Toast.show("Please enter some text", textStyle: context,
-                        duration: Toast.lengthLong, gravity: Toast.bottom);
+                        duration: Toast.lengthLong, gravity: Toast.center);
                   } else {
                     report(widget.user_id, message);
                   }
@@ -102,14 +102,14 @@ class _ReportScreenState extends State<ReportScreen> {
           hideEasyLoading();
           if (value.statusCode == 200) {
             Toast.show(value.data!.message, textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
             messageTextController.clear();
           } else if (value.statusCode == 422) {
             Toast.show("Already Reported", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           }
         });
       } else {

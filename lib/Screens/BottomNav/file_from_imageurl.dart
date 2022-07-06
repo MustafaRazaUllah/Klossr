@@ -3,19 +3,23 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-Future<File> fileFromImageUrl(imageURL) async {
-  print("<<<<<<<<<<<<<<<<<<<<<<object>>>>>>>>>>>>>>>>>>>>>>>>");
-  final response = await http.get(Uri.parse(imageURL));
+Future fileFromImageUrl(imageURL) async {
+  final file;
+  try {
+    final response = await http.get(Uri.parse(imageURL));
 
-  final documentDirectory = await getApplicationDocumentsDirectory();
+    final documentDirectory = await getApplicationDocumentsDirectory();
 
-  final file = File(join(documentDirectory.path,
-      imageURL.toString().substring(imageURL.toString().length - 20)));
+    file = File(join(documentDirectory.path,
+        imageURL.toString().substring(imageURL.toString().length - 20)));
 
-  file.writeAsBytesSync(response.bodyBytes);
-  print(
-      "<<<<<<<<<<<<<<<<<<<<<<vallsdnfgjwke fjkwe vw evhow efv>>>>>>>>>>>>>>>>>>>>>>>>");
-  print(file.toString());
+    file.writeAsBytesSync(response.bodyBytes);
 
-  return file;
+    print(file.toString());
+
+    return file;
+  } catch (e) {
+    print("efwefvwefvwefvwefvwfevwfv=======-=-=-=-=-=-" + e.toString());
+  }
+  return File;
 }

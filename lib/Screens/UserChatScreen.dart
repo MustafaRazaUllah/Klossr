@@ -716,7 +716,7 @@ class ChatScreenState extends State<ChatScreen> {
         isLoading = false;
       });
       Toast.show("Something went wrong...",textStyle: context,
-          duration: Toast.lengthLong, gravity: Toast.bottom);
+          duration: Toast.lengthLong, gravity: Toast.center);
     });
   }
 }

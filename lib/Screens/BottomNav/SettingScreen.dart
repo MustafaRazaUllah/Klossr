@@ -43,6 +43,7 @@ class _SettingScreenState extends State<SettingScreen> {
   String iamgesFile = "assets/profile_picture.png";
 
   File imageFile = File("");
+  bool islocalIamge = false;
   final picker = ImagePicker();
 // var token;
   UserUseCase userUseCase = new UserUseCase();
@@ -63,12 +64,13 @@ class _SettingScreenState extends State<SettingScreen> {
 
   getUserImage() async {
     var _image = await SessionManager().getImage();
-
+    print("------>>>>>  " + _image.toString());
     var fileName = await fileFromImageUrl(_image);
     print("out source" + fileName.toString());
     setState(
       () {
         imageFile = File(fileName.path);
+        islocalIamge = true;
       },
     );
   }
@@ -130,36 +132,37 @@ class _SettingScreenState extends State<SettingScreen> {
                       ],
                     ),
                     child: GestureDetector(
-                        onTap: () {
-                          _showPicker(context);
-                        },
-                        child: imageFile == null
-                            ? SizedBox(
-                                height: 130,
-                                width: 130,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset(
-                                    "assets/profile_picture.png",
+                      onTap: () {
+                        _showPicker(context);
+                      },
+                      child: islocalIamge == true
+                          ? imageFile == null
+                              ? SizedBox(
+                                  height: 130,
+                                  width: 130,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.asset(
+                                      "assets/profile_picture.png",
+                                    ),
                                   ),
+                                )
+                              : CircleAvatar(
+                                  radius: 60.0,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: FileImage(imageFile),
+                                )
+                          : SizedBox(
+                              height: 130,
+                              width: 130,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(
+                                  "assets/profile_picture.png",
                                 ),
-                              )
-                            : CircleAvatar(
-                                radius: 60.0,
-                                backgroundColor: Colors.white,
-                                backgroundImage: FileImage(imageFile),
-                              )
-                        // : SizedBox(
-                        //     height: 130,
-                        //     width: 130,
-                        //     child: ClipRRect(
-                        //       borderRadius: BorderRadius.circular(100),
-                        //       child: Image.asset(
-                        //         "assets/profile_picture.png",
-                        //       ),
-                        //     ),
-                        //   ),
-                        ),
+                              ),
+                            ),
+                    ),
                   ),
                 ),
               ],
@@ -281,6 +284,7 @@ class _SettingScreenState extends State<SettingScreen> {
               print("image-->> " + f.toString());
               setState(() {
                 imageFile = f;
+                islocalIamge = false;
               });
               updateUserImage(f);
               Navigator.of(context, rootNavigator: true)
@@ -327,6 +331,7 @@ class _SettingScreenState extends State<SettingScreen> {
       if (pickedFile != null) {
         setState(() {
           imageFile = File(pickedFile.path);
+          islocalIamge = true;
         });
         print("after object=+++++Local Image Path" + imageFile.toString());
         var finalImage = resizeMyImage(imageFile);

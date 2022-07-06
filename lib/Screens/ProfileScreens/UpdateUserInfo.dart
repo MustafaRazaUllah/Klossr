@@ -408,7 +408,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
         Navigator.pop(context, userInfo);
       } else {
         Toast.show("Name length must be greater than 2 character!", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+            duration: Toast.lengthLong, gravity: Toast.center);
       }
     } else if (widget.isUpdate == "age") {
       if (_age.isNotEmpty && int.parse(_age) > 15) {
@@ -434,7 +434,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
         Navigator.pop(context, userInfo);
       } else {
         Toast.show("Age must be above 15", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+            duration: Toast.lengthLong, gravity: Toast.center);
       }
     } else if (widget.isUpdate == "aboutme") {
       if (_aboutMe.isNotEmpty && _aboutMe.length <= 250) {
@@ -460,7 +460,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
         Navigator.pop(context, userInfo);
       } else {
         Toast.show("Enter correct data", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+            duration: Toast.lengthLong, gravity: Toast.center);
       }
     } else if (widget.isUpdate == "gender") {
       if (selected != null) {
@@ -486,7 +486,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
         Navigator.pop(context, userInfo);
       } else {
         Toast.show("Select gender type", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+            duration: Toast.lengthLong, gravity: Toast.center);
       }
     } else if (widget.isUpdate == "interestedin") {
       if (interestedList.length > 0) {
@@ -512,14 +512,14 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
         Navigator.pop(context, userInfo);
       } else {
         Toast.show("Select Interested types", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+            duration: Toast.lengthLong, gravity: Toast.center);
       }
     } else if (widget.isUpdate == "password") {
       if (validator.isPasswordTrue(_pass)) {
         Navigator.pop(context, _pass);
       } else {
         Toast.show("Password length must be greater than 7 character!", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.bottom);
+            duration: Toast.lengthLong, gravity: Toast.center);
       }
     }
   }
@@ -560,10 +560,10 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             });
           } else if (value.statusCode == 422) {
             Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.bottom);
+                duration: Toast.lengthLong, gravity: Toast.center);
           }
         });
       } else {

@@ -75,7 +75,7 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
         Toast.show("Something went wrong!",
             textStyle: TextStyle(),
             duration: Toast.lengthLong,
-            gravity: Toast.bottom);
+            gravity: Toast.center);
       }
     } catch (e) {
       setState(() {
@@ -287,19 +287,19 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
             Toast.show("request sent successfully!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
             Navigator.pop(context, true);
           } else if (value.statusCode == 400) {
             Toast.show("Request already sent",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
             Navigator.pop(context, true);
           } else {
             Toast.show("Something went wrong!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
-                gravity: Toast.bottom);
+                gravity: Toast.center);
           }
         });
       } else {

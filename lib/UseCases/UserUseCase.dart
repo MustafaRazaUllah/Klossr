@@ -497,12 +497,12 @@ class UserUseCase {
   }
 
   Future<BaseModel<VerifyCodeDTO>> verifyCode(String code) async {
+    print("object=============>>>>>>>>>+++++++++>>>>>>");
+    print(code);
     VerifyCodeDTO? response;
     try {
-      // String _token = await SessionManager().getUserToken();
-      // String token = "Bearer $_token";
-      // print(token);
-      response = await apiClient?.verifyCode(code);
+      response = (await apiClient?.verifyCode(code))!;
+      // print("==========4=4=4==4==4=4==4=4" + response.message.toString());
     } catch (error, stacktrace) {
       print("Exception occuredddd: $stacktrace");
       if (error is DioError)
@@ -513,11 +513,13 @@ class UserUseCase {
     }
     return BaseModel()
       ..setStatusCode(200)
-      ..data = response!;
+      ..data = response;
   }
 
   Future<BaseModel<SuggestGenderDTO>> updatePassword(
       String password, String token) async {
+    print(token);
+    print(password);
     SuggestGenderDTO? response;
     try {
       // String _token = await SessionManager().getUserToken();
@@ -534,6 +536,6 @@ class UserUseCase {
     }
     return BaseModel()
       ..setStatusCode(200)
-      ..data = response!;
+      ..data = response;
   }
 }
