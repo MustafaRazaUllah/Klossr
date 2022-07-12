@@ -573,6 +573,16 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
         return;
       }
 
+      if (birthDate.isEmpty || birthDate == null) {
+        Toast.show(
+          "The birthDate is required",
+          textStyle: TextStyle(color: Colors.white),
+          duration: Toast.lengthLong,
+          gravity: Toast.center,
+        );
+        return;
+      }
+
       print(
         "name: $name,username: $userName, email: $email, age: $age, DOB: $birthDate, about_me : $aboutMe, ghost: $isGhostMode, gender: ${gender!.id}, interested: $isInterestedIn, password: $password",
       );
@@ -592,6 +602,8 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
         userUseCase.updateUserInfo(updatedUserDetail).then(
           (value) {
             hideEasyLoading();
+            print(value.statusCode);
+            // print(va);
             if (value.statusCode == 200) {
               Toast.show(
                 "Profile are updated successfully.",
@@ -602,6 +614,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
 
               SessionManager().setUserInfo(token, name, userName, email, age,
                   ghostMode, aboutMe, null, null, password, image);
+              // print(SessionManager().getUserInfo);
 
               Navigator.pop(context);
             } else {

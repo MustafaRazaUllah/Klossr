@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klossr/Models/GenderListModel.dart';
 import 'package:klossr/Models/UserInfoModel.dart';
 import 'package:klossr/Models/UserModel.dart';
@@ -14,7 +15,8 @@ class UpdateUserInfo extends StatefulWidget {
   final UserModel userDetail;
   final String password;
 
-  UpdateUserInfo({this.isUpdate="", required this.userDetail, this.password=""});
+  UpdateUserInfo(
+      {this.isUpdate = "", required this.userDetail, this.password = ""});
 
   @override
   _UpdateUserInfoState createState() => _UpdateUserInfoState();
@@ -31,7 +33,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
   final validator = Validator();
   List<GenderListModel> genderList = [];
   List<GenderListModel> interestedList = [];
-  GenderListModel ? selected;
+  GenderListModel? selected;
 
   @override
   void initState() {
@@ -124,10 +126,12 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                             decoration: InputDecoration(
                               hintText: 'Name',
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                             ),
                           ),
@@ -153,10 +157,12 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                             decoration: InputDecoration(
                               hintText: 'Age',
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                             ),
                           ),
@@ -189,10 +195,12 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                                   '${250 - _aboutMeController.text.length} / 250 words',
                               hintText: 'About Me',
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                             ),
                           ),
@@ -285,7 +293,6 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                             ),
                             interestedList.length > 0
                                 ? Container(
-                                    // height: 80,
                                     padding: EdgeInsets.only(bottom: 80.0),
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
@@ -317,8 +324,15 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                                           fontSize: 16,
                                         ),
                                       ),
-                                      onConfirm: (results) {
-                                        interestedList!= results;
+                                      onConfirm:
+                                          (List<GenderListModel> results) {
+                                        print(results.length);
+                                        interestedList.clear();
+                                        setState(() {
+                                          interestedList.addAll(results);
+                                        });
+                                        print("interestedList " +
+                                            interestedList.length.toString());
                                       },
                                       initialValue: interestedList,
                                     ),
@@ -348,10 +362,12 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                             decoration: InputDecoration(
                               hintText: '********',
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade300),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
                               ),
                             ),
                           ),
@@ -407,8 +423,13 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             "1m");
         Navigator.pop(context, userInfo);
       } else {
-        Toast.show("Name length must be greater than 2 character!", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.center);
+        Fluttertoast.showToast(
+            msg: "Name length must be greater than 2 character!",
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } else if (widget.isUpdate == "age") {
       if (_age.isNotEmpty && int.parse(_age) > 15) {
@@ -433,8 +454,13 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             "1m");
         Navigator.pop(context, userInfo);
       } else {
-        Toast.show("Age must be above 15", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.center);
+        Fluttertoast.showToast(
+            msg: "Age must be above 15",
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } else if (widget.isUpdate == "aboutme") {
       if (_aboutMe.isNotEmpty && _aboutMe.length <= 250) {
@@ -459,8 +485,13 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             "1m");
         Navigator.pop(context, userInfo);
       } else {
-        Toast.show("Enter correct data", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.center);
+        Fluttertoast.showToast(
+            msg: "Enter correct data",
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } else if (widget.isUpdate == "gender") {
       if (selected != null) {
@@ -485,10 +516,16 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             "1m");
         Navigator.pop(context, userInfo);
       } else {
-        Toast.show("Select gender type", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.center);
+        Fluttertoast.showToast(
+            msg: "Select gender type",
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } else if (widget.isUpdate == "interestedin") {
+      print("length==>>  " + interestedList.length.toString());
       if (interestedList.length > 0) {
         var userDetail = UserInfoModel(
           widget.userDetail.user_info.age,
@@ -509,17 +546,28 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             widget.userDetail.longitude,
             interestedList,
             "1m");
+        print("hello");
         Navigator.pop(context, userInfo);
       } else {
-        Toast.show("Select Interested types", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.center);
+        Fluttertoast.showToast(
+            msg: "Select Interested types",
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } else if (widget.isUpdate == "password") {
       if (validator.isPasswordTrue(_pass)) {
         Navigator.pop(context, _pass);
       } else {
-        Toast.show("Password length must be greater than 7 character!", textStyle: context,
-            duration: Toast.lengthLong, gravity: Toast.center);
+        Fluttertoast.showToast(
+            msg: "Password length must be greater than 7 character!",
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }
@@ -559,11 +607,21 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
               print(interestedList.length);
             });
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.center);
+            Fluttertoast.showToast(
+                msg: "Request already sent",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.center);
+            Fluttertoast.showToast(
+                msg: "Something went wrong!",
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
         });
       } else {
