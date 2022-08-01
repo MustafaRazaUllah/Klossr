@@ -30,6 +30,7 @@ class SessionManager {
     prefs.setString('id', id);
   }
 
+
   setUserYu(id) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('yu', id);

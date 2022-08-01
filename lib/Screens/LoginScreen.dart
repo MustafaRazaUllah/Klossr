@@ -11,6 +11,7 @@ import 'package:klossr/SessionManager/SessionManager.dart';
 import 'package:klossr/UseCases/UserUseCase.dart';
 import 'package:klossr/Utilities/Utilities.dart';
 import 'package:klossr/Validator/Validator.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:toast/toast.dart';
 
 import 'BottomNav.dart';
@@ -202,13 +203,14 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  signInMethod(BuildContext context, String username, String password) {
+  signInMethod(BuildContext context, String username, String password) async {
     UserUseCase userUseCase = new UserUseCase();
+    var deviceID = await PlatformDeviceId.getDeviceId;
     checkInternet().then((value) async {
       if (value) {
         showEasyloaging();
         userUseCase
-            .signIn(username.trim(), password, token ?? "")
+            .signIn(username.trim(), password, token ?? await SessionManager().getFirebaseToken(), deviceID ?? "")
             .then((value) {
           hideEasyLoading();
           if (value.statusCode == 200) {

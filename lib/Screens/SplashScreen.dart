@@ -30,10 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void iOS_Permission() {
     _firebaseMessaging.requestPermission(sound: true, badge: true, alert: true);
   }
-  // getFCMToken() async {
-  //   token = await _firebaseMessaging.getToken();
-  //   print("toto $token");
-  // }
+
 
   isSessionExit() async {
     var isSession = await SessionManager().getUserToken();

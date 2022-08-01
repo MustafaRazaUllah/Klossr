@@ -11,6 +11,7 @@ import 'package:klossr/SessionManager/SessionManager.dart';
 import 'package:klossr/UseCases/UserUseCase.dart';
 import 'package:klossr/Utilities/Utilities.dart';
 import 'package:klossr/Validator/Validator.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:toast/toast.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -259,12 +260,13 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   signUpMethod(BuildContext context, String name, String username, String email,
-      String password) {
+      String password) async{
     UserUseCase userUseCase = new UserUseCase();
+    var deviceID = await PlatformDeviceId.getDeviceId;
     checkInternet().then((value) {
       if (value) {
         showEasyloaging();
-        userUseCase.signUp(name, username, email, password).then((value) {
+        userUseCase.signUp(name, username, email, password, token ?? "", deviceID ?? "").then((value) {
           hideEasyLoading();
           if (value.statusCode == 200) {
             // Toast.show("User register successfully!", context,

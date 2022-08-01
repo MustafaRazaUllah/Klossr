@@ -11,6 +11,7 @@ import 'package:klossr/SessionManager/SessionManager.dart';
 import 'package:klossr/Utilities/local_notification.dart';
 import 'package:klossr/Utilities/notification_check.dart';
 import 'package:klossr/screens/SplashScreen.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:toast/toast.dart';
 
 var controller = Get.put(NotificationViewModel());
@@ -21,6 +22,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
   print("Handling a background message: ${message.messageId}");
+
   LocalNotifications().init();
   LocalNotifications().notification(
       '${message.notification!.title}', '${message.notification!.body}');
@@ -45,6 +47,16 @@ Future<void> main() async {
 
   /// Update the iOS foreground notification presentation options to allow
   /// heads up notifications.
+  await FirebaseMessaging.instance.getToken().then((value) async {
+      String? token = value;
+      print("FCM Token====>");
+      print(token);
+      SessionManager().setFirebaseToken(token);
+      // await DatabaseHandler().setFCMToken(token!);
+    });
+  var deviceID = await PlatformDeviceId.getDeviceId;
+  print("deviceID=>> ");
+  print(  deviceID.toString());
   FirebaseMessaging.onMessage.listen(
     (RemoteMessage event) async {
       print("recieved");

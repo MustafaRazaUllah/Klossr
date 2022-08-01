@@ -35,11 +35,11 @@ abstract class ApiClient {
 
   @POST("auth/register")
   Future<SignInDTO> signUp(@Part() String name, @Part() String username,
-      @Part() String email, @Part() String password);
+      @Part() String email, @Part() String password, @Part() String fcm_token,@Part() String device_token );
 
   @POST("auth/login")
   Future<SignInDTO> signIn(@Part() String username, @Part() String password,
-      @Part() String device_token);
+      @Part() String device_token, @Part() String fcm_token );
 
   @POST("user-update")
   Future<SignInDTO> updateUser(

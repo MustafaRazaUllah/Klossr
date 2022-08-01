@@ -35,12 +35,12 @@ class UserUseCase {
   }
 
   Future<BaseModel<SignInDTO>> signUp(
-      String name, String username, String email, String password) async {
+      String name, String username, String email, String password, String fcm, String deviceID) async {
     SignInDTO? response;
     try {
       print("Enter in response of SignUp");
 
-      response = await apiClient?.signUp(name, username, email, password);
+      response = await apiClient?.signUp(name, username, email, password, fcm, deviceID);
       print("response of SignUp");
       print(response);
     } catch (error, stacktrace) {
@@ -59,10 +59,10 @@ class UserUseCase {
   }
 
   Future<BaseModel<SignInDTO>> signIn(
-      String userName, String password, String token) async {
+      String userName, String password, String token, String deviceID) async {
     SignInDTO? response;
     try {
-      response = await apiClient?.signIn(userName.trim(), password, token);
+      response = await apiClient?.signIn(userName.trim(), password, token, deviceID);
     } catch (error, stacktrace) {
       print("Exception occured: $stacktrace");
       if (error is DioError)

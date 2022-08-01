@@ -17,11 +17,22 @@ class _ApiClient implements ApiClient {
   String baseUrl;
 
   @override
-  Future<SignInDTO> signUp(name, username, email, password) async {
+  Future<SignInDTO> signUp(
+      name, username, email, password, fcm, deviceID) async {
+    print("name => " + name);
+    print("username => " + username);
+    print("email => " + email);
+    print("fcm => " + fcm);
+    print("deviceID => " + deviceID);
+    print("password => " + password);
+
     ArgumentError.checkNotNull(name, 'name');
     ArgumentError.checkNotNull(username, 'username');
     ArgumentError.checkNotNull(email, 'email');
     ArgumentError.checkNotNull(password, 'password');
+    ArgumentError.checkNotNull(fcm, 'fcm_token');
+    ArgumentError.checkNotNull(deviceID, 'device_token');
+
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = FormData();
@@ -37,6 +48,13 @@ class _ApiClient implements ApiClient {
     if (password != null) {
       _data.fields.add(MapEntry('password', password));
     }
+    if (fcm != null) {
+      _data.fields.add(MapEntry('fcm_token', fcm));
+    }
+    if (deviceID != null) {
+      _data.fields.add(MapEntry('device_token', deviceID));
+    }
+
     final _result =
         await _dio.request<Map<String, dynamic>>('${baseUrl}auth/register',
             queryParameters: queryParameters,
@@ -51,10 +69,16 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<SignInDTO> signIn(username, password, deviceToken) async {
+  Future<SignInDTO> signIn(
+    username,
+    password,
+    fcmToken,
+    deviceToken,
+  ) async {
     ArgumentError.checkNotNull(username, 'username');
     ArgumentError.checkNotNull(password, 'password');
-    ArgumentError.checkNotNull(deviceToken, 'device_token');
+    ArgumentError.checkNotNull(deviceToken, 'device_token ');
+    ArgumentError.checkNotNull(fcmToken, 'fcm_token ');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = FormData();
@@ -71,15 +95,19 @@ class _ApiClient implements ApiClient {
     if (deviceToken != null) {
       print("device_token true");
       print(deviceToken);
-
       _data.fields.add(MapEntry('device_token', deviceToken));
     }
+    if (fcmToken != null) {
+      print("device_token true");
+      print(fcmToken);
+      _data.fields.add(MapEntry('fcm_token', fcmToken));
+    }
     print("_data");
-    FormData formData = FormData.fromMap({
-      "username": username,
-      "password": password,
-      "device_token": deviceToken
-    });
+    // FormData formData = FormData.fromMap({
+    //   "username": username,
+    //   "password": password,
+    //   "fcm_token ": deviceToken
+    // });
 
     print(_data);
     final _result = await Dio().request<Map<String, dynamic>>(
