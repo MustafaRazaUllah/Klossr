@@ -16,6 +16,7 @@ UserInfoRequestModel _$UserInfoRequestModelFromJson(Map<String, dynamic> json) {
   json['ghost_mode'] as int,
    json['gender_id'] as int,
         (json['interested_in'] as List).map((e) => e as int).toList(),
+    json['password'] as String,
   );
 }
 
@@ -30,4 +31,5 @@ Map<String, dynamic> _$UserInfoRequestModelToJson(
       'ghost_mode': instance.ghost_mode,
       'gender_id': instance.gender_id,
       'interested_in': instance.interested_in,
+      'password': instance.password,
     };

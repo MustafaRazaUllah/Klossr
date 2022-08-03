@@ -77,13 +77,15 @@ class UserUseCase {
   }
 
   Future<BaseModel<SignInDTO>> updateUserInfo(
-      UserInfoRequestModel userInfo) async {
+      UserInfoRequestModel userInfo,) async {
     SignInDTO? response;
     try {
       String _token = await SessionManager().getUserToken();
       String token = "Bearer $_token";
 
-      response = await apiClient!.updateUser(token, userInfo);
+      print("Access Token =>> " + token);
+
+      response = await apiClient!.updateUser(token, userInfo, );
     } catch (error, stacktrace) {
       print("Exception occured: $stacktrace");
       if (error is DioError)

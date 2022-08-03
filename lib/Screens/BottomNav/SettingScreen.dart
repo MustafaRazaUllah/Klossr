@@ -23,6 +23,7 @@ import 'package:flutter/services.dart' show SystemUiOverlayStyle, rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as https;
 import 'package:flutter/services.dart' show rootBundle;
 import 'file_from_imageurl.dart';
 
@@ -224,10 +225,20 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   logoutMethod() async {
-    await SessionManager().Logout();
-
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    var accessToken = await SessionManager().getUserToken();
+    var response = await https.get(
+      Uri.parse("https://api.klosrr.com/api/v1/auth/logout"),
+      headers: {
+        "Authorization": "Bearer ${accessToken.toString()}",
+      },
+    );
+    if(response.statusCode == 200){
+      await SessionManager().Logout();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }else{
+     print("Status Code => " + response.statusCode.toString());
+    }
   }
 
   void _showPicker(context) {

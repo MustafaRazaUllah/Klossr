@@ -129,10 +129,13 @@ class _ApiClient implements ApiClient {
   Future<SignInDTO> updateUser(token, userInfo) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(userInfo, 'userInfo');
+
+
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(userInfo.toJson());
+
     final _result =
         await _dio.request<Map<String, dynamic>>('${baseUrl}user-update',
             queryParameters: queryParameters,

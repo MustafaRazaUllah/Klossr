@@ -596,6 +596,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
         isGhostMode,
         gender!.id,
         isInterestedIn,
+        password,
       );
       if (value) {
         showEasyloaging();
