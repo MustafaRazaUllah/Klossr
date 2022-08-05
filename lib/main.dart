@@ -13,6 +13,7 @@ import 'package:klossr/Utilities/notification_check.dart';
 import 'package:klossr/screens/SplashScreen.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:toast/toast.dart';
+import 'package:http/http.dart' as https;
 
 var controller = Get.put(NotificationViewModel());
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -48,15 +49,15 @@ Future<void> main() async {
   /// Update the iOS foreground notification presentation options to allow
   /// heads up notifications.
   await FirebaseMessaging.instance.getToken().then((value) async {
-      String? token = value;
-      print("FCM Token====>");
-      print(token);
-      SessionManager().setFirebaseToken(token);
-      // await DatabaseHandler().setFCMToken(token!);
-    });
+    String? token = value;
+    print("FCM Token====>");
+    print(token);
+    SessionManager().setFirebaseToken(token);
+    // await DatabaseHandler().setFCMToken(token!);
+  });
   var deviceID = await PlatformDeviceId.getDeviceId;
   print("deviceID=>> ");
-  print(  deviceID.toString());
+  print(deviceID.toString());
   FirebaseMessaging.onMessage.listen(
     (RemoteMessage event) async {
       print("recieved");
@@ -106,7 +107,18 @@ void configLoading() {
     ..dismissOnTap = false;
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    sendFCMToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
@@ -134,10 +146,46 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+sendFCMToken() async {
+  print("object===========================================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  bool token = await SessionManager().isExists("token");
+  print(token.toString() + "---------------------------------------------------------------------");
+  if (token) {
+    try {
+      String fcm = await SessionManager().getFirebaseToken();
+      var deviceID = await PlatformDeviceId.getDeviceId;
+      String accessToken = await SessionManager().getUserToken();
+      print("FCM=====>$fcm");
+      print("DeviceID=====>$deviceID");
+      print("accessToken ====>> " + accessToken);
+      var data = {"deviceId": deviceID.toString(), "fcm": fcm.toString()};
 
-
+      print("Data=====>$data");
+      var response = await https.post(
+        Uri.parse("https://api.klosrr.com/api/v1/auth/update-token"),
+        body: {
+          "device_token": deviceID.toString(),
+          "fcm_token": fcm.toString()
+        },
+        headers: {
+          "Authorization": "Bearer ${accessToken.toString()}",
+        },
+      );
+      print("-<<<<<<<<<<----massage");
+      print(response);
+      if (response.statusCode == 200) {
+        print("Success");
+      } else {
+        print("error");
+      }
+    } catch (e) {
+      print("exceptation of update Token " + e.toString());
+    }
+  } else {
+    print("Not Login Any User");
+  }
+}
 
 // export PATH="$PATH:/Users/macbookpro/Documents/flutter/bin"
 // export PATH="$PATH:/Users/macbookpro/.pub-cache/bin"
 // export PATH="$PATH:/usr/lib/dart/bin"
-

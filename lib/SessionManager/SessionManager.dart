@@ -60,7 +60,7 @@ class SessionManager {
 
   getUserToken() async {
     final prefs = await SharedPreferences.getInstance();
-    var _userToken = prefs.getString('token');
+    String? _userToken = prefs.getString('token');
     return _userToken;
   }
 

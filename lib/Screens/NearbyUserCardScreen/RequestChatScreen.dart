@@ -41,10 +41,12 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
         isLoading = true;
       });
 
+      var token = await SessionManager().getUserToken();
+
       ToastContext().init(context);
       print('statusCode');
       print(widget.userId);
-      print(widget.token);
+      print(token);
       print(widget.user.id);
 
       var response = await https.post(
@@ -54,7 +56,7 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
           "friend_id": widget.user.id.toString()
         },
         headers: {
-          "Authorization": "Bearer ${widget.token.toString()}",
+          "Authorization": "Bearer ${token.toString()}",
         },
       );
       print('statusCode1111');
@@ -64,7 +66,7 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
         setState(() {
           isLoading = false;
         });
-        print(jsonDecode(response.body));
+        print("check resquest=>> " + jsonDecode(response.body)["is_request"].toString());
         setState(() {
           requested = jsonDecode(response.body)["is_request"];
         });
@@ -283,18 +285,22 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
         showEasyloaging();
         userUseCase.sendRequest(id).then((value) {
           hideEasyLoading();
+          print("statuscode=>>>>>>>>>>>> " + value.statusCode.toString());
           if (value.statusCode == 200) {
             Toast.show("request sent successfully!",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
+            checkAlreadyRequest();
             Navigator.pop(context, true);
           } else if (value.statusCode == 400) {
             Toast.show("Request already sent",
                 textStyle: TextStyle(),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
+            checkAlreadyRequest();
             Navigator.pop(context, true);
+
           } else {
             Toast.show("Something went wrong!",
                 textStyle: TextStyle(),
