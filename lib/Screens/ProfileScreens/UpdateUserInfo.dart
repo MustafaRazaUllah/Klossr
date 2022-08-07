@@ -124,7 +124,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                           TextField(
                             controller: _nameController,
                             decoration: InputDecoration(
-                              hintText: 'Name',
+                              hintText: 'Type here',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),
@@ -155,7 +155,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                           TextField(
                             controller: _ageController,
                             decoration: InputDecoration(
-                              hintText: 'Age',
+                              hintText: 'Type here',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),
@@ -193,7 +193,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                             decoration: InputDecoration(
                               counterText:
                                   '${250 - _aboutMeController.text.length} / 250 words',
-                              hintText: 'About Me',
+                              hintText: 'Type here',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),

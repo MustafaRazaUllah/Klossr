@@ -265,12 +265,12 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
             });
           } else if (value.statusCode == 422) {
             Toast.show("Request already sent",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }
@@ -292,19 +292,19 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
           if (value.statusCode == 200) {
             print("this is the id $id");
             Toast.show("Unfriend successfully!",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => BottomNav(1)));
           } else if (value.statusCode == 422) {
             Toast.show("Request already sent",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }
@@ -342,7 +342,7 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
         if (i == snapshots.docs.length - 1) {
           EasyLoading.dismiss();
           Toast.show("Chat deleted successfully!",
-              textStyle: TextStyle(),
+              textStyle: TextStyle(color: Colors.white),
               duration: Toast.lengthLong,
               gravity: Toast.center);
         }
@@ -363,19 +363,19 @@ class _AllChatUserScreenState extends State<AllChatUserScreen> {
           if (value.statusCode == 200) {
             // print("this is the id $id");
             Toast.show("Blocked",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => BottomNav(1)));
           } else if (value.statusCode == 422) {
             Toast.show("Already Blocked",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }

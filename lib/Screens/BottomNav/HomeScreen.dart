@@ -33,7 +33,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double min = 0;
-  double max = 200000;
+  double max = 900000000;
   double selectedDistance = 0;
   Location _location = Location();
   GoogleMapController? _controller;
@@ -410,20 +410,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: Row(
                                                 children: [
                                                   buildSideLabel(
-                                                      (selectedDistance / 1000)
-                                                          .round()
-                                                          .toString()),
+                                                    // (selectedDistance / 1000)
+                                                    //     .round()
+                                                    //     .toString(),
+
+                                                    selectedDistance
+                                                                .round()
+                                                                .toString()
+                                                                .length <
+                                                            4
+                                                        ? selectedDistance
+                                                            .round()
+                                                            .toString()
+                                                        : selectedDistance
+                                                                    .round()
+                                                                    .toString()
+                                                                    .length <
+                                                                7
+                                                            ? "${(selectedDistance / 1000).round().toString()} K"
+                                                            : "${(selectedDistance / 1000000).round().toString()} M",
+                                                  ),
                                                   Expanded(
                                                     child: Slider(
                                                         min: min,
                                                         max: max,
                                                         value: selectedDistance,
                                                         // divisions: 1,
-                                                        label: selectedDistance
-                                                            .round()
-                                                            .toString(),
+                                                        // label: selectedDistance
+                                                        //     .round()
+                                                        //     .toString(),
                                                         onChanged: (value) {
-                                                          print(value);
+                                                          print(value
+                                                              .round()
+                                                              .toString()
+                                                              .length
+                                                              .toString());
+                                                          print(value
+                                                              .round()
+                                                              .toString());
                                                           setState(() {
                                                             selectedDistance =
                                                                 value;
@@ -431,7 +455,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           });
                                                         }),
                                                   ),
-                                                  buildSideLabel("200 k"),
+                                                  buildSideLabel("900 M"),
                                                 ],
                                               ),
                                             ),
@@ -1029,7 +1053,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     } else
-      showToast("No any user found!", context);
+      showToast("No Users", context);
   }
 
   Future<ui.Image> getImageFromPath(String imagePath) async {
@@ -1168,18 +1192,18 @@ class _HomeScreenState extends State<HomeScreen> {
             });
             SessionManager().setGhostMode(mode);
             Toast.show("Cloak mode is updated successfully",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else if (value.statusCode == 422) {
             print("value: ${value.data}");
             Toast.show("Cannot update",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }
@@ -1240,7 +1264,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (selectedDistance.round() <= 0) {
       ToastContext().init(context);
       Toast.show("Please select distance value.",
-          textStyle: TextStyle(),
+          textStyle: TextStyle(color: Colors.white),
           duration: Toast.lengthLong,
           gravity: Toast.center);
       return;

@@ -9,7 +9,7 @@ import 'package:klossr/Utilities/Utilities.dart';
 import 'package:toast/toast.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key ? key}) : super(key: key);
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -17,7 +17,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
-  TabController ? _controller;
+  TabController? _controller;
 
   StreamController<int> _friendsController = StreamController<int>();
   StreamController<int> _requestController = StreamController<int>();
@@ -71,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen>
                   stream: _requestController.stream,
                   builder: (_, snapshot) => BadgeIcon(
                     icon: Text("     "), //Icon(Icons.chat, size: 25),
-                    badgeCount:int.parse(snapshot.data!.toString()),
+                    badgeCount: int.parse(snapshot.data!.toString()),
                     badgeColor: Colors.black,
                     showIfZero: true,
                   ),
@@ -111,11 +111,15 @@ class _ChatScreenState extends State<ChatScreen>
               _friendsController.sink.add(totalFriends);
             });
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.center);
+            Toast.show("Request already sent",
+                textStyle: TextStyle(color: Colors.white),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.center);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(color: Colors.white),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           }
         });
       } else {
@@ -141,11 +145,15 @@ class _ChatScreenState extends State<ChatScreen>
             });
             // Navigator.pop(context);
           } else if (value.statusCode == 422) {
-            Toast.show("Request already sent", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.center);
+            Toast.show("Request already sent",
+                textStyle: TextStyle(color: Colors.white),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           } else {
-            Toast.show("Something went wrong!", textStyle: context,
-                duration: Toast.lengthLong, gravity: Toast.center);
+            Toast.show("Something went wrong!",
+                textStyle: TextStyle(color: Colors.white),
+                duration: Toast.lengthLong,
+                gravity: Toast.center);
           }
         });
       } else {
@@ -161,11 +169,11 @@ class BadgeIcon extends StatelessWidget {
       this.badgeCount = 0,
       this.showIfZero = false,
       this.badgeColor = Colors.red,
-      TextStyle ? badgeTextStyle})
+      TextStyle? badgeTextStyle})
       : this.badgeTextStyle = badgeTextStyle ??
             TextStyle(
                 color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold);
-  final Widget ? icon;
+  final Widget? icon;
   final int badgeCount;
   final bool showIfZero;
   final Color badgeColor;
@@ -173,7 +181,8 @@ class BadgeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Stack(children: <Widget>[icon!,
+    return new Stack(children: <Widget>[
+      icon!,
       if (badgeCount > 0 || showIfZero) badge(badgeCount),
     ]);
   }

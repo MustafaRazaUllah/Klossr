@@ -229,31 +229,31 @@ class _SignupScreenState extends State<SignupScreen> {
               signUpMethod(context, _name, _username, _email, _password);
             } else {
               Toast.show("Please agree terms and conditions",
-                  textStyle: TextStyle(),
+                 textStyle: TextStyle(color: Colors.white),
                   duration: Toast.lengthLong,
                   gravity: Toast.center);
             }
           } else {
             Toast.show("Password length must be greater than 7 character!",
-                textStyle: TextStyle(),
+               textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }
         } else {
           Toast.show("Email is not valid!",
-              textStyle: TextStyle(),
+              textStyle: TextStyle(color: Colors.white),
               duration: Toast.lengthLong,
               gravity: Toast.center);
         }
       } else {
         Toast.show("Username length must be greater than 2 character!",
-            textStyle: TextStyle(),
+          textStyle: TextStyle(color: Colors.white),
             duration: Toast.lengthLong,
             gravity: Toast.center);
       }
     } else {
       Toast.show("Name length must be greater than 2 character!",
-          textStyle: TextStyle(),
+          textStyle: TextStyle(color: Colors.white),
           duration: Toast.lengthLong,
           gravity: Toast.center);
     }
@@ -315,12 +315,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         ]));
           } else if (value.statusCode == 422) {
             Toast.show("Username or Email is already taken.",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else {
             Toast.show("Something went wrong!",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }

@@ -23,7 +23,8 @@ class UserChatScreen extends StatelessWidget {
   final String peerName;
 
   UserChatScreen(
-      {Key ? key, required this.peerId,
+      {Key? key,
+      required this.peerId,
       required this.peerAvatar,
       required this.peerName})
       : super(key: key);
@@ -69,7 +70,7 @@ class ChatScreen extends StatefulWidget {
   final String peerId;
   final String peerAvatar;
 
-  ChatScreen({Key ? key, required this.peerId, required this.peerAvatar})
+  ChatScreen({Key? key, required this.peerId, required this.peerAvatar})
       : super(key: key);
 
   @override
@@ -78,19 +79,19 @@ class ChatScreen extends StatefulWidget {
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  ChatScreenState({Key ? key, required this.peerId, required this.peerAvatar});
+  ChatScreenState({Key? key, required this.peerId, required this.peerAvatar});
 
   String peerId;
   String peerAvatar;
-  String ? id;
+  String? id;
 
   var listMessage;
-  String ? groupChatId;
+  String? groupChatId;
 
-  bool ? isLoading;
-  String ? imageUrl;
-  File ? imageFile;
-  PermissionStatus ? permissionStatus;
+  bool? isLoading;
+  String? imageUrl;
+  File? imageFile;
+  PermissionStatus? permissionStatus;
   final picker = ImagePicker();
 
   final TextEditingController textEditingController =
@@ -136,8 +137,6 @@ class ChatScreenState extends State<ChatScreen> {
     // print(s.get('pushToken'));
     // Map<String, dynamic>? data = querySnapshot.data();
 
-
-
     setState(() {});
   }
 
@@ -167,12 +166,13 @@ class ChatScreenState extends State<ChatScreen> {
           },
         );
       });
-      DocumentSnapshot s=await  FirebaseFirestore.instance
+      DocumentSnapshot s = await FirebaseFirestore.instance
           .collection('users')
-          .doc(peerId).get();
+          .doc(peerId)
+          .get();
       print("huigui");
       print(s.get('pushToken'));
-      _sendAndRetrieveMessage(content,s.get('pushToken'));
+      _sendAndRetrieveMessage(content, s.get('pushToken'));
       listScrollController.animateTo(0.0,
           duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     } else {
@@ -597,13 +597,15 @@ class ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
   Future<void> _sendAndRetrieveMessage(String message, String tokin) async {
     // Go to Firebase console -> Project settings -> Cloud Messaging -> copy Server key
     // the Server key will start "AAAAMEjC64Y..."
 
     final yourServerKey =
         "AAAA8-vbQ9k:APA91bECW4-SOdJhxB-i-hXN0R-JRbkuH06zN_RjC6Ws1vLYDkhroNR4674GWMhkOvfPYVrf2Org-xVsX-qCOeknZGmFwFvI1GhSDWcsrBU_nNwI9uAMsJSOOn74jgwmKQqaGJMSkGkX";
-    await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+    await http.post(
+      Uri.parse('https://fcm.googleapis.com/fcm/send'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'key=$yourServerKey',
@@ -629,6 +631,7 @@ class ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
   Widget buildListMessage() {
     Query query = FirebaseFirestore.instance
         .collection('messages')
@@ -715,8 +718,10 @@ class ChatScreenState extends State<ChatScreen> {
       setState(() {
         isLoading = false;
       });
-      Toast.show("Something went wrong...",textStyle: context,
-          duration: Toast.lengthLong, gravity: Toast.center);
+      Toast.show("Something went wrong...",
+          textStyle: TextStyle(color: Colors.white),
+          duration: Toast.lengthLong,
+          gravity: Toast.center);
     });
   }
 }

@@ -151,6 +151,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                         });
                   },
                   child: Container(
+                    color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -178,6 +179,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                     //         builder: (context) => UpdateUserInfo()));
                   },
                   child: Container(
+                    color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -199,6 +201,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                 GestureDetector(
                   onTap: () {},
                   child: Container(
+                    color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -252,6 +255,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                     _showDatePicker(context);
                   },
                   child: Container(
+                    color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -275,6 +279,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                 ),
                 GestureDetector(
                   child: Container(
+                    color: Colors.transparent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -350,6 +355,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                 // ),
                 GestureDetector(
                   child: Container(
+                    color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -379,7 +385,8 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                   height: 30.0,
                 ),
                 GestureDetector(
-                  child: Container(
+                  child: Container(color: Colors.transparent,
+
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -422,6 +429,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                 ),
                 GestureDetector(
                   child: Container(
+                    color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

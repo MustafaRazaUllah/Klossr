@@ -15,9 +15,9 @@
 1. Create a file named [project]/android/key.properties that contains a reference to your keystore:
 2. below key.properties data
 
-storePassword=
-keyPassword=
-keyAlias=upload
+storePassword=iunc@123
+keyPassword=iunc@123
+keyAlias=klosrr
 storeFile=../app/klosrr.jks
 
 

@@ -198,10 +198,13 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
                         ],
                       )),
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => ContactusPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WebViewPage(
+                              url: "https://www.klosrr.com/contact-us/",
+                              title: "Contact us",
+                            )));
                   },
                 ),
 
@@ -327,15 +330,20 @@ class _UserSettingScreenState extends State<UserSettingScreen> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 40, horizontal: 20.0),
-                  height: 45.0,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(22)),
-                  child: Center(
-                    child: Text('Save', style: TextStyle(color: Colors.white)),
-                  )),
+              child:GestureDetector (
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 40, horizontal: 20.0),
+                    height: 45.0,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(22)),
+                    child: Center(
+                      child: Text('Save', style: TextStyle(color: Colors.white)),
+                    )),
+              ),
             ),
           ],
         ),

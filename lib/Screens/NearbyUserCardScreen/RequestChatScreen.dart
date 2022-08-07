@@ -66,7 +66,8 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
         setState(() {
           isLoading = false;
         });
-        print("check resquest=>> " + jsonDecode(response.body)["is_request"].toString());
+        print("check resquest=>> " +
+            jsonDecode(response.body)["is_request"].toString());
         setState(() {
           requested = jsonDecode(response.body)["is_request"];
         });
@@ -75,7 +76,7 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
           isLoading = false;
         });
         Toast.show("Something went wrong!",
-            textStyle: TextStyle(),
+           textStyle: TextStyle(color: Colors.white),
             duration: Toast.lengthLong,
             gravity: Toast.center);
       }
@@ -230,30 +231,45 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (requested == false) {
-                            requestToChat(widget.user.id.toString());
-                            print(
-                                "this is user id from send request ${widget.user.id}");
-                          }
-                        },
-                        child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 40),
-                            height: 50.0,
-                            decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(22)),
-                            child: Center(
-                              child: requested == false
-                                  ? Text('Request to Chat',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0))
-                                  : Text('Requested to Chat',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0)),
-                            )),
-                      ),
+                      child: requested
+                          ? GestureDetector(
+                              onTap: () {
+                                Toast.show("Request already sent",
+                                    textStyle: TextStyle(color: Colors.white),
+                                    duration: Toast.lengthLong,
+                                    gravity: Toast.center);
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 40),
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(22)),
+                                  child: Center(
+                                    child: Text('Requested',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0)),
+                                  )),
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                requestToChat(widget.user.id.toString());
+                                print(
+                                    "this is user id from send request ${widget.user.id}");
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 40),
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(22)),
+                                  child: Center(
+                                      child: Text('Request to Chat',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0)))),
+                            ),
                     ),
                   ),
             // Padding(
@@ -288,22 +304,21 @@ class _RequestChatScreenState extends State<RequestChatScreen> {
           print("statuscode=>>>>>>>>>>>> " + value.statusCode.toString());
           if (value.statusCode == 200) {
             Toast.show("request sent successfully!",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
             checkAlreadyRequest();
             Navigator.pop(context, true);
           } else if (value.statusCode == 400) {
             Toast.show("Request already sent",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
             checkAlreadyRequest();
             Navigator.pop(context, true);
-
           } else {
             Toast.show("Something went wrong!",
-                textStyle: TextStyle(),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           }
