@@ -948,21 +948,27 @@ class _HomeScreenState extends State<HomeScreen> {
             lstZones[x].latitude != null &&
             lstZones[x].longitude != null) {
           var iconUrl = lstZones[x].profile_image;
+          File? file;
+          if (lstZones[x].profile_image.isNotEmpty) {
+            //get image data from network
+            var request = await http.get(Uri.parse(iconUrl));
+            var bytes = request.bodyBytes;
 
-          //get image data from network
-          var dataBytes;
-          var request = await http.get(Uri.parse(iconUrl));
-          var bytes = request.bodyBytes;
+            //save image data in temp file
+            String dir = (await getApplicationDocumentsDirectory()).path;
+            file = new File('$dir/$_markerIdCounter.png');
+            await file.writeAsBytes(bytes);
+          } else {
+            //get image data from network
+            var request = await http.get(Uri.parse(
+                "http://api.klosrr.com/storage/26/conversions/cache10-profile.jpg"));
+            var bytes = request.bodyBytes;
 
-          // setState(() {
-          dataBytes = bytes;
-          // });
-
-          //save image data in temp file
-          String dir = (await getApplicationDocumentsDirectory()).path;
-          File file = new File('$dir/$_markerIdCounter.png');
-          await file.writeAsBytes(bytes);
-          print("imageiCon : ${file.path}");
+            //save image data in temp file
+            String dir = (await getApplicationDocumentsDirectory()).path;
+            file = new File('$dir/$_markerIdCounter.png');
+            await file.writeAsBytes(bytes);
+          }
 
           _markerIdCounter++;
           final MarkerId markerId = MarkerId(_markerIdCounter.toString());
@@ -1057,15 +1063,36 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<ui.Image> getImageFromPath(String imagePath) async {
+    print("1");
     File imageFile = File(imagePath);
-
+    print("2");
     Uint8List imageBytes = imageFile.readAsBytesSync();
-
+    print("3");
     final Completer<ui.Image> completer = new Completer();
-
+    print("4");
     ui.decodeImageFromList(imageBytes, (ui.Image img) {
       return completer.complete(img);
     });
+    print("5");
+
+    return completer.future;
+  }
+
+  Future<ui.Image> getImageFromPath1(String imagePath) async {
+    print("1");
+    File imageFile = File(imagePath);
+    print(imageFile);
+    print(imageFile.path);
+    print("2");
+
+    Uint8List imageBytes = imageFile.readAsBytesSync();
+    print("3");
+    final Completer<ui.Image> completer = new Completer();
+    print("4");
+    ui.decodeImageFromList(imageBytes, (ui.Image img) {
+      return completer.complete(img);
+    });
+    print("5");
 
     return completer.future;
   }
@@ -1144,9 +1171,26 @@ class _HomeScreenState extends State<HomeScreen> {
     canvas.clipPath(Path()..addOval(oval));
 
     // Add image
-    ui.Image image = await getImageFromPath(
-        imagePath); // Alternatively use your own method to get the image
-    paintImage(canvas: canvas, image: image, rect: oval, fit: BoxFit.fitWidth);
+    if (imagePath != "") {
+      print("imagePath is not empty");
+      ui.Image image = await getImageFromPath(
+          imagePath); // Alternatively use your own method to get the image
+      paintImage(
+          canvas: canvas, image: image, rect: oval, fit: BoxFit.fitWidth);
+    } else {
+      print("imagePath is empty");
+      ui.Image image = await getImageFromPath1('assets/profile_picture.png');
+      paintImage(
+          canvas: canvas, image: image, rect: oval, fit: BoxFit.fitWidth);
+    }
+    // Future<File> getImageFileFromAssets() async {
+    //   final byteData = await rootBundle.load();
+    //
+    //   final file = File('${(await getTemporaryDirectory()).path}/$path');
+    //   await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    //
+    //   return file;
+    // }
 
     // Convert canvas to image
     final ui.Image markerAsImage = await pictureRecorder
@@ -1198,7 +1242,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (value.statusCode == 422) {
             print("value: ${value.data}");
             Toast.show("Cannot update",
-               textStyle: TextStyle(color: Colors.white),
+                textStyle: TextStyle(color: Colors.white),
                 duration: Toast.lengthLong,
                 gravity: Toast.center);
           } else {
@@ -1279,9 +1323,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print("Gender : $_gender");
     print("Distance : ${selectedDistance.round()}");
     print("Age : $ageMin, $ageMax");
-
     Navigator.pop(context);
-
     checkInternet().then((value) async {
       if (value) {
         showEasyloaging();
@@ -1290,6 +1332,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ageMax.round())
             .then((value) {
           hideEasyLoading();
+          print("Status of the filtter -=????????????? " +
+              value.statusCode.toString());
           if (value.statusCode == 200) {
             print(value.data!.data);
             print("values: ${value.data!.data.length}");
